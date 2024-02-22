@@ -3,15 +3,18 @@ class categoriesModel{
 
   categoriesModel.fromJson({Map<String,dynamic> ? json}){
     data.forEach((element) {
-      data.add(dataCat.fromJson(
-        id: json!['id'] ,
-        category:  json['category']
-      ));
+      data.add(
+          dataCat.fromJson(json: json!['data'])
+      );
     });
   }
 }
 class dataCat{
   int ? id ;
   String ? category;
-  dataCat.fromJson({this.id , this.category});
+
+  dataCat.fromJson({Map<String,dynamic> ? json}){
+    id = json!['id'];
+    category = json['category'];
+  }
 }

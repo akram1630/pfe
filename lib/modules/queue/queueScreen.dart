@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pfe/shared/components.dart';
 import 'package:pfe/styles/colors.dart';
@@ -230,7 +231,32 @@ class queueScreen extends StatelessWidget {
                   Align(
                     alignment: Alignment.center,
                     child: defaultButton(
-                        function: (){},
+                        function: ()async{
+                          print('clicked');
+
+                          showDialog(
+                              context: context,
+                              builder: (context)=> AlertDialog(
+                                actions: [
+                                  TextButton(
+                                      onPressed: (){
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text("CLOSE")
+                                  ),
+                                  TextButton(
+                                      onPressed: (){
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text("CONFIRM")
+                                  ),
+
+                                ],
+                                title: Center(child: Text("we don't have details yet")),
+                                contentPadding: EdgeInsets.all(8),
+                              )
+                          );
+                        },
                         text: 'Cancel',
                         radius: 10,
                          width: 200,
@@ -248,3 +274,4 @@ class queueScreen extends StatelessWidget {
 
   }
 }
+

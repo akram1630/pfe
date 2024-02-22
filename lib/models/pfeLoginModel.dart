@@ -7,7 +7,7 @@ class pfeLoginModel{
   pfeLoginModel.fromJson(Map<String , dynamic>  json ){
     access = json['access'];
     status = json['status'];
-    user = json['user'];
+    //user = userData.fromJson(json: json[''])
 
   }
 }
