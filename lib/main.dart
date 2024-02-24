@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:pfe/api_test.dart';
 
 import 'package:pfe/shared/bloc_observer.dart';
 import 'package:pfe/shared/cache_helper.dart';
@@ -20,6 +21,7 @@ Future<void> main() async {
   await Future.delayed(Duration(seconds: 2));
   FlutterNativeSplash.remove();
   await cachHelper.init();
+  testApi.init();
   dioHelper.init();
   Bloc.observer = MyBlocObserver();
   Widget page ;

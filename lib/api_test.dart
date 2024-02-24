@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 
+import 'models/tokenModel.dart';
+
 class testApi{
 
   static Dio ? dio ;
@@ -86,6 +88,7 @@ void main(){
     print(err.toString());
   });
   */
+
   testApi.post(
       url: 'auth/token/',
       data: {
@@ -93,12 +96,21 @@ void main(){
         "password" : "akram123456",
       }
   ).then((value){
-    print(value.statusMessage);
-    print(value.statusCode);
-    print(value.data);
+    tokenModel ? user ;
+    user = tokenModel.fromJson(json: value.data);
+    print(user.token);
+    print(user.status);
+    print(user.user!.username);
+    print(user.user!.email);
+    print(user.user!.id);
 
-  }).catchError((err){
+
+  })
+      .catchError((err){
     print(err.toString());
   });
+
+
+
 
 }

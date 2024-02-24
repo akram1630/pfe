@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc/bloc.dart';
+import 'package:pfe/api_test.dart';
+import 'package:pfe/layout/cubit/states.dart';
 import 'package:pfe/models/loginModel.dart';
+import 'package:pfe/shared/cache_helper.dart';
 import 'package:pfe/shared/dio_helper.dart';
 
 import '../../../shared/end_points.dart';
@@ -15,6 +18,30 @@ class loginCubit extends Cubit<loginStates> {
     return BlocProvider.of(context);
   }
 
+
+  void pfeLoginUser({
+    required String email ,
+    required String password ,
+  })
+  {
+    print('login-start--------------');
+    emit(loginLoadingStates());
+    testApi.post(
+        url: 'token',
+        data:{
+          "username" : "ilyes@gmail.com",
+          "password" : "ilyes123123"
+        }
+    ).then((value){
+      print(value.data);
+      emit(loginChangePassVisibilityStates());
+    }).catchError((err){
+      print(err.toString());
+      emit(loginChangePassVisibilityStates());
+    });
+  }
+
+  /*
   loginModel? loginMod;
 
   void loginUser({
@@ -47,6 +74,7 @@ class loginCubit extends Cubit<loginStates> {
       emit(loginErrorStates(loginMod!));
     });
   }
+  */
 
 
 

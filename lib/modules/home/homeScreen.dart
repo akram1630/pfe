@@ -53,8 +53,11 @@ class homeScreen extends StatelessWidget {
                     Expanded(
                         child: TextFormField(
                           decoration: InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(color: HexColor(defaultGreen)),
+                            )  ,
                             border: UnderlineInputBorder(),
-                            hintText: ' search'
+                            hintText: ' search',
                           ),
                         )
                     ),

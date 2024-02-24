@@ -110,12 +110,15 @@ class loginScreen extends StatelessWidget {
                           builder: (context) => defaultButton(
                             radius: 10,
                             function: () {
+                              /*
                               if (formKey.currentState!.validate()) {
                                 cubit.loginUser(
                                     email: emailController.text,
                                     password: passwordController.text
                                 );
+
                               }
+                              */
                             },
                             text: 'LOGIN',
                             isUppercase: true,

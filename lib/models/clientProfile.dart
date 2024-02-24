@@ -1,10 +1,10 @@
 class clientProfile{
-  userData ? data ;
+  userData ? user ;
   String ? Profile_pic ;
 
   clientProfile.fromJson({Map<String,dynamic> ? json}){
     Profile_pic = json!['Profile_pic'];
-    data = userData.fromJson(json: json['data']);
+    user = userData.fromJson(json: json['user']);
   }
 }
 class userData{

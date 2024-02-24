@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pfe/api_test.dart';
 import 'package:pfe/models/loginModel.dart';
 import 'package:pfe/modules/register/cubit/registerStates.dart';
 import 'package:pfe/shared/dio_helper.dart';
@@ -15,6 +16,33 @@ class registerCubit extends Cubit<registerStates>{
     return BlocProvider.of(context);
   }
 
+
+
+  void pfeUserRegister({
+    required String email ,
+    required String password ,
+    required String first_name ,
+    required String last_name ,
+  })
+  {
+    emit(registerLoadingStates());
+    testApi.post(
+        url: 'auth/Client_Register/',
+        data: {
+          "first_name" : first_name,
+          "last_name" : last_name,
+          "email" : email,
+          "password" : password
+        }
+    ).then((value){
+      print(value.data);
+      emit(registerChangePasswordVisibiltyStates());
+    }).catchError((err){
+      emit(registerChangePasswordVisibiltyStates());
+      print(err.toString());
+    });
+  }
+  /*
   loginModel ? loginMod ;
   void userRegister({
     required String email ,
@@ -41,7 +69,7 @@ class registerCubit extends Cubit<registerStates>{
       emit(registerErrorStates(err));
     });
   }
-
+  */
   IconData suffixEyePass = Icons.visibility_outlined ;
   bool isPassword = true;
   void changePassVisibility(){

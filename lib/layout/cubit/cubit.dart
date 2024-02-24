@@ -15,9 +15,12 @@ class pfeCubit extends Cubit<pfeStates>{
     homeScreen() , queueScreen(),
     settingsScreen()
   ];
-  void changeBottom(int index){
+  List<bool> greenNavBar = [true , false , false];
+  void changeBotomNavBar(int index){
     currentIndex = index ;
-
+    for(int i = 0; i<greenNavBar.length ; i++)
+      greenNavBar[i] = false ;
+    greenNavBar[index] = true ;
     emit(pfeChangeBottomNavState());
   }
 

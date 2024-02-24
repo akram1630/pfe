@@ -1,4 +1,3 @@
-import 'package:pfe/models/userModel.dart';
 
 class pfeLoginModel{
   String ? access ;
