@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:pfe/api_test.dart';
+import 'package:pfe/layout/cubit/states.dart';
 
 import 'package:pfe/shared/bloc_observer.dart';
 import 'package:pfe/shared/cache_helper.dart';
@@ -24,6 +25,12 @@ Future<void> main() async {
   testApi.init();
   dioHelper.init();
   Bloc.observer = MyBlocObserver();
+  bool ? isDarkMode = await cachHelper.get(key: 'isDarkMode');
+  if(isDarkMode == null)
+    await cachHelper.putBoolean(key: 'isDarkMode', value: false).then((value) {
+      isDarkMode = false ;
+    });
+
   Widget page ;
   bool ? onBoarding = await cachHelper.get(key: 'onBoarding');
   token = await cachHelper.get(key: 'token'); // token is constants components
@@ -42,21 +49,30 @@ Future<void> main() async {
   }
 
 
-  runApp(MyApp(widget!));
+  runApp(MyApp(widget! , isDarkMode));
 }
 
 class MyApp extends StatelessWidget {
   Widget page ;
-  MyApp(this.page);
+  bool ? isDarkMode ;
+  MyApp(this.page , this.isDarkMode);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create:  (context) => pfeCubit(),
-      child: MaterialApp(
-        theme: lightMode,
-        debugShowCheckedModeBanner: false,
-        home: page ,
+      child: BlocConsumer<pfeCubit , pfeStates>(
+        listener: (context,state){},
+        builder:  (context,state){
+          return MaterialApp(
+            theme: myLightMode,
+            darkTheme: myDarkMode,
+            themeMode: pfeCubit.get(context).isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            debugShowCheckedModeBanner: false,
+            home: page ,
+          );
+        }
+
       ),
     );
   }

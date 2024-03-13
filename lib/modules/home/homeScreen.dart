@@ -7,41 +7,35 @@ import 'package:pfe/styles/colors.dart';
 import '../login/loginScreen.dart';
 
 class homeScreen extends StatelessWidget {
-
+  homeScreen(){}
+  TextStyle ? myStyle ;
+  homeScreen.withStyle({this.myStyle});
+  //i did consructor to active dark-mode
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body : SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+        physics: NeverScrollableScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'hello (user)!' ,
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      color: Colors.grey[800],
-                      fontSize: 20
-                  ),
-                ),
-                SizedBox(height: 10,),
+
                 Text('Discover our ',
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                      color: Colors.black,
-                      fontSize: 37
-                  ),
+                  style: myStyle!.copyWith(
+                      fontSize: 30
+                  )
                 ),
                 Row(
                   children: [
-                    Text('last',
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                          color: Colors.black,
-                          fontSize: 37
+                    Text('Latest',
+                      style: myStyle!.copyWith(
+                          fontSize: 30
                       ),
                     ),
                     Text(' Services',
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      style: myStyle!.copyWith(
                         color: HexColor(defaultGreen),
                         fontSize: 37
                       ),
@@ -52,13 +46,6 @@ class homeScreen extends StatelessWidget {
                   children: [
                     Expanded(
                         child: TextFormField(
-                          decoration: InputDecoration(
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: HexColor(defaultGreen)),
-                            )  ,
-                            border: UnderlineInputBorder(),
-                            hintText: ' search',
-                          ),
                         )
                     ),
                     Container(
@@ -73,9 +60,10 @@ class homeScreen extends StatelessWidget {
                     )
                   ],
                 ),
+
                 SizedBox(height: 10,),
                 Container(
-                  height: 100,
+                  height: 60,
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                       itemBuilder: (context , index) => Container(
@@ -89,40 +77,94 @@ class homeScreen extends StatelessWidget {
                       itemCount: 10
                   ),
                 ),
-                SizedBox(height: 10,),
-                ListView.separated(
-                  shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context , index) => Card(
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            'assets/images/rain.jpg',
-                            fit: BoxFit.cover,
-                            width: 100,
-                            height: 100,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('service',style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                  fontSize: 20
-                                ),),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text('see more'),
-                                  ],
-                                )
-                              ],
+                SizedBox(height: 5,),
+                Container(
+                  height: 500,
+                  child: ListView.separated(
+                      physics: BouncingScrollPhysics(),
+                      itemBuilder: (context , index) => Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        elevation: 10,
+                        color: HexColor("#CCCCCC"),
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.white, // Choose your border color
+                                    width: 2.0, // Choose your border width
+                                  ),
+                                  borderRadius: BorderRadius.circular(10.0), // Adjust the radius for rounded corners
+                                ),
+                                child: Image.asset(
+                                  'assets/images/rain.jpg',
+                                  fit: BoxFit.cover,
+                                  width: 100,
+                                  height: 100,
+                                ),
+                              ),
                             ),
-                          )
-                        ],
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'service',style: myStyle!.copyWith(
+                                    fontSize: 20,
+                                    color: Colors.black
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      TextButton(
+                                          child: Text('see more'),
+                                          onPressed: (){
+                                            showDialog(
+                                                context: context,
+                                                builder: (context)=> AlertDialog(
+                                                  actions: [
+
+                                                    TextButton(
+                                                        onPressed: (){
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                        child: Text("Annuler")
+                                                    ),
+                                                    TextButton(
+                                                        onPressed: (){
+                                                          Navigator.of(context).pop();
+                                                        },
+                                                        child: Text("Reserver")
+                                                    ),
+
+                                                  ],
+                                                  title: Center(child: Column(
+                                                    children: [
+                                                      for(int i=0; i<20; i++)
+                                                      Text("Service info"),
+                                                    ],
+                                                  )),
+                                                  contentPadding: EdgeInsets.all(8),
+                                                )
+                                            );
+                                          },
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    separatorBuilder: (context , index) => SizedBox(height: 10,),
-                    itemCount: 10
+                      separatorBuilder: (context , index) => SizedBox(height: 10,),
+                      itemCount: 10
+                  ),
                 )
               ],
             ),

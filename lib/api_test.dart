@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:pfe/shared/dio_helper.dart';
 
 import 'models/tokenModel.dart';
 
@@ -8,7 +9,7 @@ class testApi{
   static init(){
     dio = Dio(
         BaseOptions(
-            baseUrl: 'https://dc48e6032814-16159867222861334174.ngrok-free.app/',
+            baseUrl: 'https://reasonably-thorough-monitor.ngrok-free.app/',
             receiveDataWhenStatusError: true,
             // headers used cuz of postman
             headers: {
@@ -69,7 +70,7 @@ void main(){
       data: {
         "first_name" : "akram",
         "last_name" : "boutoutaou",
-        "email" : "akram05@gmail.com",
+        "email" : "akram12@gmail.com",
         "password" : "fpef44sd"
       }
   ).then((value){
@@ -81,14 +82,8 @@ void main(){
     print(err.toString());
   });
   */
-  /*
-  testApi.get(url: '').then((value){
-    print(value.data);
-  }).catchError((err){
-    print(err.toString());
-  });
-  */
-
+  /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
+/*
   testApi.post(
       url: 'auth/token/',
       data: {
@@ -109,8 +104,43 @@ void main(){
       .catchError((err){
     print(err.toString());
   });
+  */
+  /*
+  testApi.get(url: 'Api/All_Categories' )
+      .then((value){
+        print(value.data);
+      })
+      .catchError((err){
+        print(err.toString());
+      });
+  */
+  /*
+  testApi.get(url: 'Api/All_Services/' )
+      .then((value){
+    print(value.data);
+  })
+      .catchError((err){
+    print(err.toString());
+  });
 
-
-
+   */
+  dioHelper.init();
+  dioHelper.getData(url: 'Api/All_Services/' )
+      .then((value){
+    print(value.data);
+  })
+      .catchError((err){
+    print(err.toString());
+  });
+  dioHelper.postData(
+      url: 'Api/RegisterDate',
+      data:{
+        "serv_id" : "Clinique"
+      }
+  ).then((value) {
+    print(value.data);
+  }).catchError((err){
+    print('my err is $err');
+  });
 
 }

@@ -4,6 +4,8 @@ import 'package:bloc/bloc.dart';
 import 'package:pfe/api_test.dart';
 import 'package:pfe/layout/cubit/states.dart';
 import 'package:pfe/models/loginModel.dart';
+import 'package:pfe/models/pfeLoginModel.dart';
+import 'package:pfe/models/tokenModel.dart';
 import 'package:pfe/shared/cache_helper.dart';
 import 'package:pfe/shared/dio_helper.dart';
 
@@ -18,7 +20,7 @@ class loginCubit extends Cubit<loginStates> {
     return BlocProvider.of(context);
   }
 
-
+ tokenModel ? loginToken ;
   void pfeLoginUser({
     required String email ,
     required String password ,
@@ -26,18 +28,21 @@ class loginCubit extends Cubit<loginStates> {
   {
     print('login-start--------------');
     emit(loginLoadingStates());
-    testApi.post(
-        url: 'token',
+    dioHelper.postData(
+        url: 'auth/token/',
         data:{
-          "username" : "ilyes@gmail.com",
-          "password" : "ilyes123123"
+          "username" : email,
+          "password" : password,
         }
     ).then((value){
-      print(value.data);
-      emit(loginChangePassVisibilityStates());
+      loginToken = tokenModel.fromJson(json: value.data);
+      print(loginToken!.user);
+      print(loginToken!.status);
+      print(loginToken!.user!.username);
+      emit(loginSuccessStates(loginToken!));
     }).catchError((err){
-      print(err.toString());
-      emit(loginChangePassVisibilityStates());
+      print('error login : $err');
+      emit(loginErrorStates(loginToken!));
     });
   }
 

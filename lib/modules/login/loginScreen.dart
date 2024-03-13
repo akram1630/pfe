@@ -25,8 +25,9 @@ class loginScreen extends StatelessWidget {
       child: BlocConsumer<loginCubit, loginStates>(
         listener: (context, state) {
           if(state is loginSuccessStates){
-            if(state.loginMod.status!){
-              cachHelper.saveData(key: 'token' , value: state.loginMod.data!.token!)
+            if(state.login.status!){
+              print('-----token = ${state.login.user!.token}');
+              cachHelper.saveData(key: 'token' , value: state.login.user!.token)
                 .then((value){
                   navigateAndFinish(context, layout());
               });
@@ -110,15 +111,15 @@ class loginScreen extends StatelessWidget {
                           builder: (context) => defaultButton(
                             radius: 10,
                             function: () {
-                              /*
+
                               if (formKey.currentState!.validate()) {
-                                cubit.loginUser(
+                                cubit.pfeLoginUser(
                                     email: emailController.text,
                                     password: passwordController.text
                                 );
 
                               }
-                              */
+
                             },
                             text: 'LOGIN',
                             isUppercase: true,

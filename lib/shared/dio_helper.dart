@@ -8,12 +8,12 @@ class dioHelper{
   static init(){
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://student.valuxapps.com/api/',
+        baseUrl: 'https://reasonably-thorough-monitor.ngrok-free.app/',
         receiveDataWhenStatusError: true,
           // headers used cuz of postman
           headers: {
             'Content-Type' : 'application/json',
-            'lang' : 'en'
+            //'lang' : 'en'
           }
       )
     );
@@ -47,9 +47,9 @@ class dioHelper{
   {
     // we use headers here to do override when calling func
     dio!.options.headers = { // no overriding .headers == .add
-      'lang' : lang,
+      //'lang' : lang,
       'Content-Type' : 'application/json',
-      'Authorization' : token  ,
+      //'Authorization' : token  ,
     };
     return  dio!.post(
         url ,
