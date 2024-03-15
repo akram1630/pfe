@@ -2,9 +2,10 @@ class categoriesModel{
   List<dataCat> data = [] ;
 
   categoriesModel.fromJson({Map<String,dynamic> ? json}){
+    if(json!['data'] != null )
     data.forEach((element) {
       data.add(
-          dataCat.fromJson(json: json!['data'])
+          dataCat.fromJson(json: json['data'])
       );
     });
   }
@@ -17,4 +18,11 @@ class dataCat{
     id = json!['id'];
     category = json['category'];
   }
+
+  @override
+  String toString() {
+    print('lazm hadi cuz print can\'t printing the objects');
+    return 'id: $id, category: $category ';
+  }
+
 }

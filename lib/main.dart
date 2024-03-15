@@ -27,7 +27,8 @@ Future<void> main() async {
   Bloc.observer = MyBlocObserver();
   bool ? isDarkMode = await cachHelper.get(key: 'isDarkMode');
   if(isDarkMode == null)
-    await cachHelper.putBoolean(key: 'isDarkMode', value: false).then((value) {
+    await cachHelper.putBoolean(key: 'isDarkMode', value: false)
+    .then((value) {
       isDarkMode = false ;
     });
 
@@ -38,6 +39,9 @@ Future<void> main() async {
   //printFullText(token!);
   //print('the onBoarding is : $onBoarding');
   Widget ? widget ;
+
+  token = "hgkjhtghet-----------------------------------";
+
   if(token != null){  // (onBoarding! != null)Null check operator used on a null value
     widget = layout();
   }

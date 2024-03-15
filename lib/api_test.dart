@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:pfe/shared/dio_helper.dart';
 
+import 'models/allServicesModel.dart';
 import 'models/tokenModel.dart';
 
 class testApi{
@@ -9,7 +10,8 @@ class testApi{
   static init(){
     dio = Dio(
         BaseOptions(
-            baseUrl: 'https://reasonably-thorough-monitor.ngrok-free.app/',
+          //https://gentle-driving-mastodon.ngrok-free.app
+            baseUrl: 'https://gentle-driving-mastodon.ngrok-free.app/',
             receiveDataWhenStatusError: true,
             // headers used cuz of postman
             headers: {
@@ -83,7 +85,7 @@ void main(){
   });
   */
   /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
-/*
+
   testApi.post(
       url: 'auth/token/',
       data: {
@@ -93,7 +95,7 @@ void main(){
   ).then((value){
     tokenModel ? user ;
     user = tokenModel.fromJson(json: value.data);
-    print(user.token);
+    //print(user.token);
     print(user.status);
     print(user.user!.username);
     print(user.user!.email);
@@ -104,7 +106,7 @@ void main(){
       .catchError((err){
     print(err.toString());
   });
-  */
+
   /*
   testApi.get(url: 'Api/All_Categories' )
       .then((value){
@@ -114,7 +116,7 @@ void main(){
         print(err.toString());
       });
   */
-  /*
+
   testApi.get(url: 'Api/All_Services/' )
       .then((value){
     print(value.data);
@@ -123,15 +125,20 @@ void main(){
     print(err.toString());
   });
 
-   */
+
   dioHelper.init();
   dioHelper.getData(url: 'Api/All_Services/' )
       .then((value){
-    print(value.data);
+    allServices ? all ;
+    all = allServices.fromJson(value.data) ;
+    print(all.services.length);
+    //print(all.services.toString());
   })
-      .catchError((err){
+  .catchError((err){
     print(err.toString());
   });
+
+  /*
   dioHelper.postData(
       url: 'Api/RegisterDate',
       data:{
@@ -142,5 +149,5 @@ void main(){
   }).catchError((err){
     print('my err is $err');
   });
-
+  */
 }

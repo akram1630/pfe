@@ -8,7 +8,7 @@ class dioHelper{
   static init(){
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://reasonably-thorough-monitor.ngrok-free.app/',
+        baseUrl: 'https://gentle-driving-mastodon.ngrok-free.app/',
         receiveDataWhenStatusError: true,
           // headers used cuz of postman
           headers: {
