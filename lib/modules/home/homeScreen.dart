@@ -67,6 +67,7 @@ class homeScreen extends StatelessWidget {
                             child: IconButton(
                               onPressed: (){
                                 cubit.getAllServices();
+                                cubit.getCategories();
                               },
                               icon: Icon(Icons.search_outlined , color: Colors.white,),
                             ),
@@ -75,22 +76,28 @@ class homeScreen extends StatelessWidget {
                       ),
 
                       SizedBox(height: 10,),
+                      if(cubit.categories != null)
                       Container(
-                        height: 60,
+                        height: 100,
                         child: ListView.separated(
                             scrollDirection: Axis.horizontal,
-                            itemBuilder: (context , index) => Container(
-                              height: 1,
-                              child: CircleAvatar(
-                                backgroundColor: HexColor(defaultGreen),
-                                radius:40 ,
-                              ),
+                            itemBuilder: (context , index) => Column(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: HexColor(defaultGreen),
+                                  radius:30 ,
+                                ),
+                                Text(cubit.categories!.data[index].category!,
+                                  style: myStyle,
+                                )
+                              ],
                             ) ,
                             separatorBuilder: (context , index) =>SizedBox(width: 10,),
-                            itemCount: 1//cubit.categories!.data.length
+                            itemCount: cubit.categories!.data.length
                         ),
                       ),
                       SizedBox(height: 5,),
+                      if(cubit.all_services != null)
                       Container(
                         height: 500,
                         child: ListView.separated(
@@ -126,7 +133,7 @@ class homeScreen extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'service',style: myStyle!.copyWith(
+                                          cubit.all_services!.services[index].Service_name!,style: myStyle!.copyWith(
                                             fontSize: 20,
                                             color: Colors.black
                                         ),
@@ -177,9 +184,11 @@ class homeScreen extends StatelessWidget {
                               ),
                             ),
                             separatorBuilder: (context , index) => SizedBox(height: 10,),
-                            itemCount: cubit.all_services == null ? 2 : cubit.all_services!.services.length
+                            itemCount: /*cubit.all_services == null ? 2 :*/ cubit.all_services!.services.length
                         ),
                       )
+                      else
+                        Text('wait for data services')
                     ],
                   ),
                 ),

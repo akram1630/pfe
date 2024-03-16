@@ -3,9 +3,9 @@ class categoriesModel{
 
   categoriesModel.fromJson({Map<String,dynamic> ? json}){
     if(json!['data'] != null )
-    data.forEach((element) {
+      json['data'].forEach((element) {
       data.add(
-          dataCat.fromJson(json: json['data'])
+          dataCat.fromJson(json: element)
       );
     });
   }
@@ -21,7 +21,7 @@ class dataCat{
 
   @override
   String toString() {
-    print('lazm hadi cuz print can\'t printing the objects');
+    //print('lazm hadi cuz print can\'t printing the objects');
     return 'id: $id, category: $category ';
   }
 

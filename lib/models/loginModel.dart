@@ -1,4 +1,4 @@
-import 'package:pfe/models/userModel.dart';
+/*import 'package:pfe/models/userModel.dart';
 
 class loginModel{
   bool ? status ;
@@ -14,3 +14,4 @@ class loginModel{
   }
 }
 
+*/

@@ -5,6 +5,7 @@ import 'package:pfe/models/loginModel.dart';
 import 'package:pfe/modules/register/cubit/registerStates.dart';
 import 'package:pfe/shared/dio_helper.dart';
 
+import '../../../models/tokenModel.dart';
 import '../../../shared/end_points.dart';
 
 
@@ -16,8 +17,7 @@ class registerCubit extends Cubit<registerStates>{
     return BlocProvider.of(context);
   }
 
-
-
+ // tokenModel ? tokenRegister ;
   void pfeUserRegister({
     required String email ,
     required String password ,
@@ -26,7 +26,8 @@ class registerCubit extends Cubit<registerStates>{
   })
   {
     emit(registerLoadingStates());
-    testApi.post(
+    print('--11');
+    dioHelper.postData(
         url: 'auth/Client_Register/',
         data: {
           "first_name" : first_name,
@@ -35,10 +36,16 @@ class registerCubit extends Cubit<registerStates>{
           "password" : password
         }
     ).then((value){
+      print('000');
       print(value.data);
-      emit(registerChangePasswordVisibiltyStates());
+      print('111');
+      bool status = value.statusCode ==201 ? true : false ;
+      print('222');
+      print(value.statusCode);
+      print('333');
+      emit(registerSeccessStates(status));
     }).catchError((err){
-      emit(registerChangePasswordVisibiltyStates());
+      emit(registerErrorStates(err.toString()));
       print(err.toString());
     });
   }

@@ -29,7 +29,7 @@ class homeCubit extends Cubit<homeStates> {
   void getCategories(){
     emit(homeGetCategoriesLoadingState());
 
-    dioHelper.getData(url: 'Api/All_Categories' )
+    dioHelper.getData(url: 'Api/All_Categories/' )
     .then((value){
       print(value.data);
       categories = categoriesModel.fromJson(json: value.data);

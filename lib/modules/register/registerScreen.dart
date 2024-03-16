@@ -18,7 +18,14 @@ class registerScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => registerCubit(),
       child: BlocConsumer<registerCubit,registerStates>(
-        listener: (context , state){},
+        listener: (context , state){
+          if(state is registerSeccessStates)
+            if(state.status){
+              print('registration is done');
+              navigateTo(context, loginScreen());
+            }
+
+        },
         builder: (context , state){
           registerCubit cubit = registerCubit.get(context);
           return Scaffold(
@@ -133,14 +140,15 @@ class registerScreen extends StatelessWidget {
                         SizedBox(height: 20,),
                         defaultButton(
                             function: (){
-                              if(formKey.currentState!.validate()){
+                              print('clicked regi');
+                              //if(formKey.currentState!.validate()){
                                 cubit.pfeUserRegister(
                                     email: emailController.text,
                                     password: passwordController.text,
                                     first_name: first_nameController.text,
                                     last_name: last_nameController.text
                                 );
-                              }
+                              //}
                               /*
                               if(formKey.currentState!.validate()){
                                 cubit.userRegister(

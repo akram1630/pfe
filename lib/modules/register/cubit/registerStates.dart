@@ -1,5 +1,7 @@
 import 'package:pfe/models/loginModel.dart';
 
+import '../../../models/tokenModel.dart';
+
 abstract class registerStates {}
 
 class registerInitialStates extends registerStates {}
@@ -7,8 +9,8 @@ class registerInitialStates extends registerStates {}
 class registerLoadingStates extends registerStates {}
 
 class registerSeccessStates extends registerStates {
-  final loginModel  loginMod;
-  registerSeccessStates(this.loginMod);
+  final bool status;
+  registerSeccessStates(this.status);
 }
 
 class registerErrorStates extends registerStates {

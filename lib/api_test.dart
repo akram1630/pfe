@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:pfe/models/categories_model.dart';
 import 'package:pfe/shared/dio_helper.dart';
 
 import 'models/allServicesModel.dart';
@@ -85,7 +86,7 @@ void main(){
   });
   */
   /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// 
-
+/*
   testApi.post(
       url: 'auth/token/',
       data: {
@@ -106,16 +107,10 @@ void main(){
       .catchError((err){
     print(err.toString());
   });
+*/
+
 
   /*
-  testApi.get(url: 'Api/All_Categories' )
-      .then((value){
-        print(value.data);
-      })
-      .catchError((err){
-        print(err.toString());
-      });
-  */
 
   testApi.get(url: 'Api/All_Services/' )
       .then((value){
@@ -124,9 +119,22 @@ void main(){
       .catchError((err){
     print(err.toString());
   });
-
+*/
 
   dioHelper.init();
+  /*
+  dioHelper.getData(url: 'Api/All_Categories/' )
+      .then((value){
+       print(value.data);
+        categoriesModel ?cat;
+        cat = categoriesModel.fromJson(json: value.data);
+    print(cat.data);
+  })
+      .catchError((err){
+    print(err.toString());
+  });
+   */
+  /*
   dioHelper.getData(url: 'Api/All_Services/' )
       .then((value){
     allServices ? all ;
@@ -137,7 +145,7 @@ void main(){
   .catchError((err){
     print(err.toString());
   });
-
+*/
   /*
   dioHelper.postData(
       url: 'Api/RegisterDate',
@@ -150,4 +158,20 @@ void main(){
     print('my err is $err');
   });
   */
+
+  dioHelper.postData(
+      url: 'auth/Client_Register/',
+      data: {
+        "first_name" : 'popo',
+        "last_name" : 'mouh',
+        "email" : 'popo@gmail.com',
+        "password" : "popo123456"
+      }
+  ).then((value){
+    print(value.data);
+
+  }).catchError((err){
+
+    print(err.toString());
+  });
 }
