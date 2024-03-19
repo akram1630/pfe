@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pfe/layout/cubit/states.dart';
+import 'package:pfe/models/userModel.dart';
 import 'package:pfe/modules/home/homeScreen.dart';
 import 'package:pfe/modules/queue/queueScreen.dart';
 import 'package:pfe/modules/settings/settings_screen.dart';
 import 'package:pfe/shared/cache_helper.dart';
+import 'package:pfe/shared/dio_helper.dart';
 
 class pfeCubit extends Cubit<pfeStates>{
   pfeCubit() : super(pfeInitialState());
@@ -43,6 +45,19 @@ class pfeCubit extends Cubit<pfeStates>{
         .then((value){
           emit(pfeChangeBottomNavState());
         });
+  }
+  userModel ? user ;
+  void getUser(String ? token){
+    dioHelper.getData(
+      url: 'auth/Client_Profile/',
+      token: 'Bearer $token',
+    ).then((value){
+      user = userModel.fromJson(value.data);
+      emit(pfeChangeBottomNavState());
+    }).catchError((err){
+      emit(pfeChangeBottomNavState());
+      print(err.toString());
+    });
   }
 
 }

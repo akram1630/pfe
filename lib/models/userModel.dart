@@ -1,23 +1,20 @@
 class userModel{
 
   int ? id ;
-  String ? name ;
+  String ? first_name ;
+  String ? last_name ;
   String ?  email ;
-  String ? phone ;
-  String ? image ;
-  int ? points ;
-  int ? credit ;
-  String ? token ;
+  String ? phone_number ;
+  String ? Profile_pic ;
   //named constructor
   userModel.fromJson(Map<String , dynamic> json){
     id = json['id'] ;
-    name = json['name'] ;
+    first_name = json['first_name'] ;
     email = json['email'] ;
-    phone = json['phone'] ;
-    image = json['image'] ;
-    points = json['points'] ;
-    credit = json['credit'] ;
-    token = json['token'] ;
+    last_name = json['last_name'] ;
+    phone_number = json['phone_number'] ;
+    Profile_pic = json['Profile_pic'] ;
+
   }
 
 }

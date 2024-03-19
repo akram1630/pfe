@@ -9,7 +9,8 @@ import 'package:pfe/shared/cache_helper.dart';
 import '../styles/colors.dart';
 
 class layout extends StatelessWidget {
-
+  String ? first_name;
+  layout(this.first_name);
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<pfeCubit,pfeStates>(
@@ -47,7 +48,7 @@ class layout extends StatelessWidget {
                     ),*/
                   ),
                   Text(
-                    'Akram' ,
+                    (cubit.user == null || cubit.user!.first_name == null) ? first_name!  : cubit.user!.first_name!,
                   ),
                 ],
               ),

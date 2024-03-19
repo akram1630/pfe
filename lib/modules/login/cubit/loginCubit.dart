@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc/bloc.dart';
-import 'package:pfe/api_test.dart';
-import 'package:pfe/layout/cubit/states.dart';
-import 'package:pfe/models/loginModel.dart';
-import 'package:pfe/models/pfeLoginModel.dart';
+
 import 'package:pfe/models/tokenModel.dart';
-import 'package:pfe/shared/cache_helper.dart';
 import 'package:pfe/shared/dio_helper.dart';
 
-import '../../../shared/end_points.dart';
 import 'loginStates.dart';
 
 
@@ -36,9 +31,7 @@ class loginCubit extends Cubit<loginStates> {
         }
     ).then((value){
       loginToken = tokenModel.fromJson(json: value.data);
-      print(loginToken!.user);
-      print(loginToken!.status);
-      print(loginToken!.user!.username);
+
       emit(loginSuccessStates(loginToken!));
     }).catchError((err){
       print('error login : $err');

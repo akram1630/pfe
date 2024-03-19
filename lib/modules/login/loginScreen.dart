@@ -26,10 +26,10 @@ class loginScreen extends StatelessWidget {
         listener: (context, state) {
           if(state is loginSuccessStates){
             if(state.login.status!){
-              print('-----token = ${state.login.user!.token}');
-              cachHelper.saveData(key: 'token' , value: state.login.user!.token)
+              print('-----token = ${state.login.access}');
+              cachHelper.saveData(key: 'token' , value: state.login.access)
                 .then((value){
-                  navigateAndFinish(context, layout());
+                  navigateAndFinish(context, layout(state.login.user!.first_name!));
               });
             }
           }

@@ -41,4 +41,23 @@ class homeCubit extends Cubit<homeStates> {
 
     });
   }
+
+  void registerDate({
+    required String ? token,
+    required String ? serv_id,
+
+  }){
+    dioHelper.postData(
+        url: 'Api/RegisterDate/',
+        data: {
+          "serv_id" : serv_id
+        },
+        token: token
+    ).then((value){
+      print(value.statusCode);
+      print(value.data);
+    }).catchError((err){
+      print(err.toString());
+    });
+  }
 }

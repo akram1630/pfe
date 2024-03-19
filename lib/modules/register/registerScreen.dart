@@ -10,6 +10,7 @@ import 'cubit/registerStates.dart';
 class registerScreen extends StatelessWidget {
   TextEditingController first_nameController = TextEditingController();
   TextEditingController last_nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
@@ -71,7 +72,7 @@ class registerScreen extends StatelessWidget {
                           },
                           decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              label: Text('User Name'),
+                              label: Text('first ame'),
                               prefix: Icon(Icons.person)),
                         ),
                         SizedBox(
@@ -82,12 +83,27 @@ class registerScreen extends StatelessWidget {
                           controller: last_nameController,
                           validator: (value) {
                             if (value!.isEmpty)
-                              return 'please enter your phone number';
+                              return 'please enter your last name';
                             return null;
                           },
                           decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              label: Text('Phone Number'),
+                              label: Text('last name'),
+                              prefix:Icon(Icons.person) ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        TextFormField(
+                          keyboardType: TextInputType.phone,
+                          controller: phoneController,
+                          validator: (value) {
+                            if (value!.isEmpty) return 'please enter phone number';
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              label: Text('phone'),
                               prefix: Icon(Icons.phone)),
                         ),
                         SizedBox(
@@ -143,6 +159,7 @@ class registerScreen extends StatelessWidget {
                               print('clicked regi');
                               //if(formKey.currentState!.validate()){
                                 cubit.pfeUserRegister(
+                                    phone: phoneController.text,
                                     email: emailController.text,
                                     password: passwordController.text,
                                     first_name: first_nameController.text,

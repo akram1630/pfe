@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pfe/shared/components.dart';
+import 'package:pfe/shared/constants.dart';
 import 'package:pfe/styles/colors.dart';
 
 class queueScreen extends StatelessWidget {
@@ -20,7 +21,7 @@ class queueScreen extends StatelessWidget {
                 )
             ),
             SizedBox(height: 10,),
-            for(int i=0; i++ < 3;)
+
               Card(
                 color: Colors.blue[100],
                 shape: RoundedRectangleBorder(
@@ -47,7 +48,7 @@ class queueScreen extends StatelessWidget {
                           color: Colors.grey[200],
                           borderRadius: BorderRadius.all(Radius.circular(10))
                       ),
-                      child: Text(' Algerie Telecome ',
+                      child: Text(idService ?? 'no',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: Theme

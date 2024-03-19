@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pfe/api_test.dart';
-import 'package:pfe/models/loginModel.dart';
 import 'package:pfe/modules/register/cubit/registerStates.dart';
 import 'package:pfe/shared/dio_helper.dart';
 
-import '../../../models/tokenModel.dart';
-import '../../../shared/end_points.dart';
 
 
 class registerCubit extends Cubit<registerStates>{
@@ -17,11 +13,11 @@ class registerCubit extends Cubit<registerStates>{
     return BlocProvider.of(context);
   }
 
- // tokenModel ? tokenRegister ;
   void pfeUserRegister({
     required String email ,
     required String password ,
     required String first_name ,
+    required String phone ,
     required String last_name ,
   })
   {
@@ -32,17 +28,13 @@ class registerCubit extends Cubit<registerStates>{
         data: {
           "first_name" : first_name,
           "last_name" : last_name,
+          "phone_number": phone,
           "email" : email,
           "password" : password
         }
     ).then((value){
-      print('000');
       print(value.data);
-      print('111');
       bool status = value.statusCode ==201 ? true : false ;
-      print('222');
-      print(value.statusCode);
-      print('333');
       emit(registerSeccessStates(status));
     }).catchError((err){
       emit(registerErrorStates(err.toString()));

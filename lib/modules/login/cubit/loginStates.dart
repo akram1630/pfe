@@ -1,4 +1,3 @@
-import 'package:pfe/models/loginModel.dart';
 
 import '../../../models/tokenModel.dart';
 

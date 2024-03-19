@@ -22,7 +22,7 @@ Future<void> main() async {
   await Future.delayed(Duration(seconds: 2));
   FlutterNativeSplash.remove();
   await cachHelper.init();
-  testApi.init();
+  //testApi.init();
   dioHelper.init();
   Bloc.observer = MyBlocObserver();
   bool ? isDarkMode = await cachHelper.get(key: 'isDarkMode');
@@ -40,10 +40,9 @@ Future<void> main() async {
   //print('the onBoarding is : $onBoarding');
   Widget ? widget ;
 
-  token = "hgkjhtghet-----------------------------------";
 
   if(token != null){  // (onBoarding! != null)Null check operator used on a null value
-    widget = layout();
+    widget = layout('');
   }
   else if(onBoarding != null){
     widget = loginScreen();
@@ -64,7 +63,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:  (context) => pfeCubit(),
+      create:  (context) => pfeCubit()..getUser(token),
       child: BlocConsumer<pfeCubit , pfeStates>(
         listener: (context,state){},
         builder:  (context,state){

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pfe/shared/components.dart';
+import 'package:pfe/shared/constants.dart';
 import 'package:pfe/styles/colors.dart';
 
 import '../login/loginScreen.dart';
@@ -19,9 +20,11 @@ class homeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:  (context) => homeCubit(),
+      create:  (context) => homeCubit()..getCategories()..getAllServices(),
       child: BlocConsumer<homeCubit, homeStates>(
-          listener: (context, state) {},
+          listener: (context, state) {
+            //if()
+          },
           builder: (context, state) {
             homeCubit cubit = homeCubit.get(context);
             return Scaffold(
@@ -95,7 +98,9 @@ class homeScreen extends StatelessWidget {
                             separatorBuilder: (context , index) =>SizedBox(width: 10,),
                             itemCount: cubit.categories!.data.length
                         ),
-                      ),
+                      )
+                      else
+                        Center(child: CircularProgressIndicator()),
                       SizedBox(height: 5,),
                       if(cubit.all_services != null)
                       Container(
@@ -141,40 +146,55 @@ class homeScreen extends StatelessWidget {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.end,
                                           children: [
-                                            TextButton(
-                                              child: Text('see more'),
-                                              onPressed: (){
-                                                showDialog(
-                                                    context: context,
-                                                    builder: (context)=> AlertDialog(
-                                                      actions: [
+                                            Container(
 
-                                                        TextButton(
-                                                            onPressed: (){
-                                                              cubit.getAllServices();
-                                                              Navigator.of(context).pop();
-                                                            },
-                                                            child: Text("Annuler")
-                                                        ),
-                                                        TextButton(
-                                                            onPressed: (){
-                                                              Navigator.of(context).pop();
-                                                            },
-                                                            child: Text("Reserver")
-                                                        ),
+                                              child: TextButton(
+                                                child: Text('Reserver',
+                                                  style: myStyle,
+                                                ),
+                                                onPressed: (){
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context)=> AlertDialog(
+                                                        actions: [
 
-                                                      ],
-                                                      title: Center(child: Column(
-                                                        children: [
-                                                          for(int i=0; i<20; i++)
-                                                            Text("Service info"),
+                                                          TextButton(
+                                                              onPressed: (){
+                                                                cubit.getAllServices();
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                              child: Text("Annuler")
+                                                          ),
+                                                          TextButton(
+                                                              onPressed: (){
+                                                                print("the token is $token");
+                                                                print(cubit.all_services!.services[index].Service_name);
+                                                                idService = cubit.all_services!.services[index].Service_name;
+                                                                cubit.registerDate(
+                                                                    token: 'Bearer $token',
+                                                                    serv_id: cubit.all_services!.services[index].Service_name
+                                                                );
+                                                                Navigator.of(context).pop();
+                                                              },
+                                                              child: Text("Reserver")
+                                                          ),
+
                                                         ],
-                                                      )),
-                                                      contentPadding: EdgeInsets.all(8),
-                                                    )
-                                                );
-                                              },
+                                                        title: Center(child: Column(
+                                                          children: [
+                                                              Text("Confirm Reservation"),
+                                                          ],
+                                                        )),
+                                                        contentPadding: EdgeInsets.all(8),
+                                                      )
+                                                  );
+                                                },
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: HexColor(defaultGreen)
+                                              ),
                                             ),
+                                            SizedBox(width: 10,)
                                           ],
                                         )
                                       ],
@@ -188,7 +208,7 @@ class homeScreen extends StatelessWidget {
                         ),
                       )
                       else
-                        Text('wait for data services')
+                        Center(child: CircularProgressIndicator()),
                     ],
                   ),
                 ),
