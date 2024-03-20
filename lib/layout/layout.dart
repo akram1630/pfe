@@ -29,9 +29,11 @@ class layout extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: CircleAvatar(
-                  backgroundColor: HexColor(defaultGreen),
-                  radius: 22,
+                child: Image(
+                  width: 50,
+                  height: 50,
+
+                  image: NetworkImage(cubit.user != null ? 'https://mypfe.cntic-club.com/${cubit.user!.Profile_pic}' : 'https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars.png'),
                 ),
               )
             ],

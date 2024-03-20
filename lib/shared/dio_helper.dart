@@ -86,7 +86,7 @@ class dioHelper{
     );
   }
 
-  static Future<Response> putData({ // future cuz the func includ .get() func
+  static Future<Response> patchData({ // future cuz the func includ .get() func
     required String url,
     required Map<String, dynamic> data, // like update
     Map<String, dynamic> ? query,

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:pfe/models/categories_model.dart';
+import 'package:pfe/models/relatedObjectsModel.dart';
 import 'package:pfe/models/userModel.dart';
 import 'package:pfe/shared/constants.dart';
 import 'package:pfe/shared/dio_helper.dart';
@@ -72,12 +73,40 @@ void main() {
 
   dioHelper.init();
 
-  ///
-  ///
+/*
+  dioHelper.delete(
+    data: {},
+      url: 'Api/Delete_Date/34/', //id of date
+      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4NjI1NjQ5LCJpYXQiOjE3MTA4NDk2NDksImp0aSI6IjJmMzM0OGY5MzczMzQxYWZiZmZlODE3MjZjOTM4NGE0IiwidXNlcl9pZCI6MzN9.9MfZx_sG7TZZMHef5lyNK2xzFWtNHv6s8mCnAYuh-vY'
+  ).then((value){
 
-  dioHelper.putData(
+    print(value.data);
+
+  })
+      .catchError((err){
+
+    print(err.toString());
+  });
+ */
+
+  dioHelper.getData(
+      url: 'Api/Related_objects/',
+      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4NjI1NjQ5LCJpYXQiOjE3MTA4NDk2NDksImp0aSI6IjJmMzM0OGY5MzczMzQxYWZiZmZlODE3MjZjOTM4NGE0IiwidXNlcl9pZCI6MzN9.9MfZx_sG7TZZMHef5lyNK2xzFWtNHv6s8mCnAYuh-vY'
+  ).then((value){
+    print(value.data);
+    relatedObjectsModel ? obj = relatedObjectsModel.fromJson(value.data);
+    obj.printAll();
+     })
+      .catchError((err){
+    print(err.toString());
+  });
+
+  ///
+  ///
+/*
+  dioHelper.patchData(
     data: {
-      "first_name": "myNewName",
+      "first_name": "NewName",
     },
     url: 'auth/Update_Client/',
     token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4NTU3NTg0LCJpYXQiOjE3MTA3ODE1ODQsImp0aSI6IjViNTJkOWIyNDAxNzQyYzhhMDcyYTEwNmJjNDg2YzdjIiwidXNlcl9pZCI6Mzh9.U-TtsAZfme9P269eolFw4DCT4DCikmM2aDzY4_kYR5g',
@@ -89,8 +118,8 @@ void main() {
   }).catchError((err){
     print(err.toString());
   });
-
-  /*
+*/
+/*
  //user
   dioHelper.getData(
       url: 'auth/Client_Profile/',
@@ -98,12 +127,30 @@ void main() {
   ).then((value){
 
     userModel ? user = userModel.fromJson(value.data);
-    print(user.first_name);
+    print(value.data); // pic = domain/key profile
+    //print(user.first_name);
 
   }).catchError((err){
     print(err.toString());
   });
+  */
+/*
+//take a date
+dioHelper.postData(
+    url: 'Api/RegisterDate/',
+    data: {
+      "serv_id" : "One Drive"
+    },
+  token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4NDk2MDYzLCJpYXQiOjE3MTA3MjAwNjMsImp0aSI6IjZiZWVmNTEzODgwMzRhNTJhMTMwY2YyZWMxNDlkYTFjIiwidXNlcl9pZCI6MzV9.tEBwlrYGZHAM4_u_akFFGIBtF3kIJVKlOXlXYKMwpgw'
+).then((value){
+
+    print(value.statusCode);
+    print(value.data);
+}).catchError((err){
+  print(err.toString());
+});
 */
+
 }
 
 /*
