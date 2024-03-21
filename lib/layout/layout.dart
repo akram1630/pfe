@@ -33,7 +33,7 @@ class layout extends StatelessWidget {
                   width: 50,
                   height: 50,
 
-                  image: NetworkImage(cubit.user != null ? 'https://mypfe.cntic-club.com/${cubit.user!.Profile_pic}' : 'https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars.png'),
+                  image: NetworkImage(cubit.user != null ? 'https://mypfe.cntic-club.com${cubit.user!.Profile_pic}' : 'https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars.png'),
                 ),
               )
             ],

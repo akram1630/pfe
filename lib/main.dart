@@ -60,10 +60,10 @@ class MyApp extends StatelessWidget {
   bool ? isDarkMode ;
   MyApp(this.page , this.isDarkMode);
   // This widget is the root of your application.
-  @override
+  @override  
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:  (context) => pfeCubit()..getUser(token),
+      create:  (context) => pfeCubit()..getUser(token)..getReletedObj()..getCategories()..getAllServices(),
       child: BlocConsumer<pfeCubit , pfeStates>(
         listener: (context,state){},
         builder:  (context,state){

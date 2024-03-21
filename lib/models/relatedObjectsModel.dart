@@ -2,7 +2,7 @@ class relatedObjectsModel {
 
   List<dataObjects> data=[] ;
    relatedObjectsModel.fromJson(Map<String,dynamic> json){
-     if(json['data'] != null)
+     if(json['data'] is String == false)
      json['data'].forEach((element){
        data.add(dataObjects.fromJson(element));
      });
