@@ -81,19 +81,19 @@ class homeScreen extends StatelessWidget {
                     SizedBox(height: 10,),
                     if(cubit.categories != null)
                     Container(
-                      height: 100,
+                      height: 35,
                       child: ListView.separated(
                           scrollDirection: Axis.horizontal,
-                          itemBuilder: (context , index) => Column(
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: HexColor(defaultGreen),
-                                radius:30 ,
+                          itemBuilder: (context , index) => TextButton(
+                            onPressed: () { },
+                            child: Card(
+                              elevation: 10,
+                              child: Text(cubit.categories!.data[index].category!,
+                                style: myStyle!.copyWith(
+                                  fontSize: 20
+                                ),
                               ),
-                              Text(cubit.categories!.data[index].category!,
-                                style: myStyle,
-                              )
-                            ],
+                            ),
                           ) ,
                           separatorBuilder: (context , index) =>SizedBox(width: 10,),
                           itemCount: cubit.categories!.data.length
@@ -101,7 +101,7 @@ class homeScreen extends StatelessWidget {
                     )
                     else
                       Center(child: CircularProgressIndicator()),
-                    SizedBox(height: 5,),
+                    SizedBox(height: 10,),
                     if(cubit.all_services != null)
                     Container(
                       height: 500,
@@ -153,9 +153,6 @@ class homeScreen extends StatelessWidget {
                                                 style: myStyle,
                                               ),
                                               onPressed: () async {
-                                                //final receivePort = ReceivePort(); //another thread with main thread
-                                                //await Isolate.spawn(cubit.getReletedObjAsync, receivePort.sendPort);
-                                                cubit.startBackgroundTask();
                                                 showDialog(
                                                     context: context,
                                                     builder: (context)=> AlertDialog(
@@ -192,9 +189,7 @@ class homeScreen extends StatelessWidget {
                                                       contentPadding: EdgeInsets.all(8),
                                                     )
                                                 );
-                                                //receivePort.listen((message) {
-                                                //  print('Main Isolate: Received message from isolate: $message');
-                                                //});
+
                                               },
                                             ),
                                             decoration: BoxDecoration(

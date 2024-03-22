@@ -86,29 +86,20 @@ class pfeCubit extends Cubit<pfeStates>{
       emit(pfeGetRelatedObjectsErrorState());
     });
   }
-  void getReletedObjAsync(SendPort sendPort){
-    emit(pfeGetRelatedObjectsLoadingState());
-    for(int i=0; i<100000000000; i++)
-    dioHelper.getData(
-        url: 'Api/Related_objects/',
-        token: 'Bearer $token'
-    ).then((value){
-      print(value.data);
-      objects = relatedObjectsModel.fromJson(value.data);
-      emit(pfeGetRelatedObjectsSeccessState());
-    })
-        .catchError((err){
-      print(err.toString());
-      emit(pfeGetRelatedObjectsErrorState());
-    });
-    sendPort.send('Thread completed');
-  }
+
+  Timer? backgroundTask;
   void startBackgroundTask() {
-    Timer.periodic(Duration(seconds: 2), (Timer t) {
-      // Call your function here
+    backgroundTask = Timer.periodic(Duration(seconds: 2), (Timer t) {
+      print('looping');
       getReletedObj();
     });
   }
+  void stopBackgroundTask() {
+    // Check if the timer is not null before cancelling
+    print(' stop looping');
+    backgroundTask?.cancel();
+  }
+
   void deleteDate({required String id_date }){
     emit(pfeDeleteDateLoadingState());
     dioHelper.delete(
@@ -181,12 +172,5 @@ class pfeCubit extends Cubit<pfeStates>{
       emit(pfeRegisterDateErrorState());
     });
   }
-  Future<void> refreshing() async {
 
-    for(int i=0; i<1000000; i++){
-      final receivePort = ReceivePort(); //another thread with main thread
-      await Isolate.spawn(getReletedObjAsync, receivePort.sendPort);
-    }
-      
-  }
 }

@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
   @override  
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:  (context) => pfeCubit()..getUser(token)..getReletedObj()..getCategories()..getAllServices(),
+      create:  (context) => pfeCubit()..getUser(token)..getReletedObj()..getCategories()..getAllServices()..startBackgroundTask(),
       child: BlocConsumer<pfeCubit , pfeStates>(
         listener: (context,state){},
         builder:  (context,state){
