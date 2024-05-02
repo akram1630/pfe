@@ -22,7 +22,7 @@ class relatedObjectsModel {
 class dataObjects{
   int ? id;
   int ? client;
-  int ? service;
+  String ? service;
   int ? place;
   int ? clients_before;
   dataObjects.fromJson(Map<String,dynamic> json){

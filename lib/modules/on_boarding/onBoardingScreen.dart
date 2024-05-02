@@ -36,7 +36,7 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
       appBar: AppBar(
         actions: [
           TextButton(
-            child: Text('SKIP'),
+            child: myText(text: 'SKIP'),
             onPressed: (){
               submit();
             },
@@ -118,21 +118,9 @@ class _onBoardingScreenState extends State<onBoardingScreen> {
         ),
       ),
       SizedBox(height: 40,),
-      Text(
-        model.title,
-        style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold
-        ),
-      ),
+      myText(text: model.title),
       SizedBox(height: 40,),
-      Text(
-        model.body,
-        style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold
-        ),
-      ),
+      myText(text: model.body),
       SizedBox(height: 40,),
     ],
   );

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:pfe/api_test.dart';
 import 'package:pfe/layout/cubit/states.dart';
+import 'package:pfe/modules/register/registerScreen.dart';
 
 import 'package:pfe/shared/bloc_observer.dart';
 import 'package:pfe/shared/cache_helper.dart';
@@ -21,10 +22,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized(); // to make sure that all lines complete theie execution befor runApp();
   await Future.delayed(Duration(seconds: 2));
   FlutterNativeSplash.remove();
-  await cachHelper.init();
-  //testApi.init();
-  dioHelper.init();
-  Bloc.observer = MyBlocObserver();
+  await cachHelper.init(); //for local
+  dioHelper.init(); //for apiS
+  Bloc.observer = MyBlocObserver(); //detecting states
   bool ? isDarkMode = await cachHelper.get(key: 'isDarkMode');
   if(isDarkMode == null)
     await cachHelper.putBoolean(key: 'isDarkMode', value: false)
@@ -32,7 +32,7 @@ Future<void> main() async {
       isDarkMode = false ;
     });
 
-  Widget page ;
+ // Widget page ;
   bool ? onBoarding = await cachHelper.get(key: 'onBoarding');
   token = await cachHelper.get(key: 'token'); // token is constants components
   print('------------------> token : $token');
@@ -59,8 +59,8 @@ class MyApp extends StatelessWidget {
   Widget page ;
   bool ? isDarkMode ;
   MyApp(this.page , this.isDarkMode);
-  // This widget is the root of your application.
-  @override  
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create:  (context) => pfeCubit()..getUser(token)..getReletedObj()..getCategories()..getAllServices()..startBackgroundTask(),
@@ -72,10 +72,9 @@ class MyApp extends StatelessWidget {
             darkTheme: myDarkMode,
             themeMode: pfeCubit.get(context).isDarkMode ? ThemeMode.dark : ThemeMode.light,
             debugShowCheckedModeBanner: false,
-            home: page ,
+            home: page,
           );
         }
-
       ),
     );
   }

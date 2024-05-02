@@ -29,7 +29,6 @@ class settingsScreen extends StatelessWidget {
                 children: [
                   IconButton(
                       onPressed: (){
-                        Timer(Duration(seconds: 1), () => cubit.stopBackgroundTask());
 
                         navigateTo(context, infoScreen());
                       },
@@ -49,8 +48,8 @@ class settingsScreen extends StatelessWidget {
                           SizedBox(height: 10,),
                           InkWell(
                               onTap: (){
-                                cubit.startBackgroundTask();
-                                navigateTo(context, editProfile());
+                                Timer(Duration(seconds: 1), () => cubit.stopBackgroundTask());
+                                navigateAndFinish(context, editProfile());
                               },
                               child: Row(
                                 children: [
@@ -61,9 +60,7 @@ class settingsScreen extends StatelessWidget {
                                         onPressed: (){
 
                                         },
-                                        child: Text('Edit Profile',style: TextStyle(
-                                            fontFamily: 'Poppins'
-                                        ),),
+                                        child: myText(text: 'Edit Profile'),
                                       )
                                   ),
                                 ],
@@ -77,7 +74,7 @@ class settingsScreen extends StatelessWidget {
                                   Icon(Icons.sunny),
                                   SizedBox(width: 20,),
                                   Expanded(
-                                      child: Text('Appearence')
+                                      child: myText(text: 'Appearence')
                                   ),
                                 ],
                               )
@@ -90,7 +87,7 @@ class settingsScreen extends StatelessWidget {
                                   Icon(Icons.language),
                                   SizedBox(width: 20,),
                                   Expanded(
-                                      child: Text('Language')
+                                      child: myText(text: 'Language')
                                   ),
                                 ],
                               )
@@ -103,7 +100,7 @@ class settingsScreen extends StatelessWidget {
                                   Icon(Icons.notifications_none_outlined),
                                   SizedBox(width: 20,),
                                   Expanded(
-                                      child: Text('Notification')
+                                      child: myText(text: 'Notification')
                                   ),
                                 ],
                               )
@@ -115,8 +112,9 @@ class settingsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 5,),
                   MaterialButton(
-                    onPressed: (){
-                      cachHelper.removeData(key: 'token').then((value){
+                    onPressed: () async {
+                      await cachHelper.removeData(key: 'token').then((value){
+                        Timer(Duration(seconds: 1), () => cubit.stopBackgroundTask());
                         navigateAndFinish(context, loginScreen());
                       });
                     },
@@ -126,7 +124,7 @@ class settingsScreen extends StatelessWidget {
                           color: HexColor(defaultGreen),
                           borderRadius: BorderRadius.circular(10.0), // Adjust the radius for rounded corners
                         ),
-                        child: Text('LogOut')
+                        child: myText(text: 'LogOut')
                     ),
                   )
                 ],

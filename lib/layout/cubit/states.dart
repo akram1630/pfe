@@ -16,6 +16,10 @@ class pfeGetUserLoadingState extends pfeStates{}
 class pfeGetUserSuccessState extends pfeStates{}
 class pfeGetUserErrorState extends pfeStates{}
 
+class pfeUpdateUserLoadingState extends pfeStates{}
+class pfeUpdateUserSuccessState extends pfeStates{}
+class pfeUpdateUserErrorState extends pfeStates{}
+
 class pfeRegisterDateLoadingState extends pfeStates {}
 class pfeRegisterDateSuccessState extends pfeStates {}
 class pfeRegisterDateErrorState extends pfeStates {}
@@ -27,5 +31,8 @@ class pfeGetRelatedObjectsErrorState extends pfeStates{}
 class pfeDeleteDateLoadingState extends pfeStates{}
 class pfeDeleteDateSeccessState extends pfeStates{}
 class pfeDeleteDateErrorState extends pfeStates{}
+
+class pfeStartAsyncState extends pfeStates{}
+class pfeStopAsyncState extends pfeStates{}
 
 

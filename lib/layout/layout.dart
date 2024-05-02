@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:pfe/layout/cubit/cubit.dart';
 import 'package:pfe/layout/cubit/states.dart';
 import 'package:pfe/shared/cache_helper.dart';
+import 'package:pfe/shared/components.dart';
 
 import '../styles/colors.dart';
 
@@ -23,7 +24,6 @@ class layout extends StatelessWidget {
             actions: [
               IconButton(
                   onPressed: () async {
-
                     cubit.changeThemeMode( await cachHelper.get(key: 'isDarkMode'));
                   },
                   icon: Icon(Icons.nightlight_outlined)
@@ -43,21 +43,13 @@ class layout extends StatelessWidget {
                 ),
               )
             ],
-
             title: Padding(
               padding: EdgeInsets.symmetric(horizontal: 3 ),
               child: Row(
                 children: [
-                  Text(
-                    'hello ' ,
-                    /*style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        fontSize: 20,
-                        //color: HexColor(defaultGreen)
-                    ),*/
-                  ),
-                  Text(
-                    (cubit.user == null || cubit.user!.first_name == null) ? first_name!  : cubit.user!.first_name!,
-                  ),
+                  myText(text: 'hello ', isBold: true,context: context),
+                  myText(text: (cubit.user == null || cubit.user!.first_name == null) ? first_name!  : cubit.user!.first_name!, isBold: true,context: context),
+
                 ],
               ),
             ),
@@ -78,64 +70,30 @@ class layout extends StatelessWidget {
                 Column(
                   children: [
                     Icon(Icons.home,   size: 35, color: cubit.greenNavBar[0] ? HexColor(defaultGreen) : Colors.black,),
-                    Text('Home',
-                      style: TextStyle(color: cubit.greenNavBar[0] ? HexColor(defaultGreen) : Colors.black,)
-                    )
+                    myText(text: 'Home', isBold: true,color: cubit.greenNavBar[0] ? HexColor(defaultGreen) : Colors.black,size: 16)
                   ],
                 ),
                 Column(
                   children: [
                     Icon(Icons.query_builder_rounded, size: 35, color: cubit.greenNavBar[1] ? HexColor(defaultGreen) : Colors.black,),
-                    Text('Query',
-                        style: TextStyle(color: cubit.greenNavBar[1] ? HexColor(defaultGreen) : Colors.black,)
-                    )
+                    myText(text: 'Query', isBold: true,color: cubit.greenNavBar[1] ? HexColor(defaultGreen) : Colors.black,size: 16)
+
                   ],
                 ),
                 Column(
                     children:[
                       Icon(Icons.settings_outlined, size: 35 , color: cubit.greenNavBar[2] ? HexColor(defaultGreen) : Colors.black,),
-                      Text('Query',
-                          style: TextStyle(color: cubit.greenNavBar[2] ? HexColor(defaultGreen) : Colors.black,)
-                      )
+                      myText(text: 'Settings', isBold: true,color: cubit.greenNavBar[2] ? HexColor(defaultGreen) : Colors.black,size: 16)
+
                     ]
                 ),
               ],
               onTap: (index) {
+
                 cubit.changeBotomNavBar(index);
               },
             ),
           ),
-          /*
-            bottomNavigationBar: BottomNavigationBar(
-            onTap: (indexOfBottom){
-              cubit.changeBottom(indexOfBottom);
-            },
-            currentIndex: cubit.currentIndex,
-            selectedLabelStyle: TextStyle(color: HexColor(defaultGreen)),
-            selectedIconTheme: IconThemeData(
-              color: HexColor(defaultGreen),
-          ),
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                  ),
-                  label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.apps,
-                  ),
-                  label: 'queue'
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.settings,
-                  ),
-                  label: 'Settings'
-              ),
-            ],
-          ),*/
         );
       },
     );

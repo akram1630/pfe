@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:pfe/layout/cubit/cubit.dart';
 import 'package:pfe/shared/components.dart';
@@ -40,7 +39,7 @@ class _queueScreenState extends State<queueScreen> {
                   if(objects != null)
                     if(objects!.data.length != 0)
                     Container(
-                      height: 400,
+                      height: 550,
                       child: ListView.separated(
                           itemBuilder:(context , index){
                             return Card(
@@ -55,31 +54,10 @@ class _queueScreenState extends State<queueScreen> {
                                   SizedBox(
                                     height: 10,
                                   ),
-                                  Text('service ${objects!.data[index].service}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1!
-                                          .copyWith(
-                                          fontSize: 20, color: Colors.black)),
+                                  myText(text: objects!.data[index].service!, isBold: true,context: context,size: 30,),
+
                                   SizedBox(
                                     height: 10,
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                    child: Text(
-                                      idService ?? 'no',
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1!
-                                          .copyWith(
-                                          fontSize: 20,
-                                          color: HexColor(defaultGreen)),
-                                    ),
                                   ),
                                   SizedBox(
                                     height: 10,
@@ -98,24 +76,8 @@ class _queueScreenState extends State<queueScreen> {
                                           crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              'Your',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .copyWith(
-                                                  fontSize: 20,
-                                                  color: Colors.black),
-                                            ),
-                                            Text(
-                                              'Position : ',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .copyWith(
-                                                  fontSize: 20,
-                                                  color: Colors.black),
-                                            )
+                                            myText(text: 'Your', isBold: true),
+                                            myText(text: 'Position : ', isBold: true,size: 20),
                                           ],
                                         ),
                                         SizedBox(
@@ -123,15 +85,7 @@ class _queueScreenState extends State<queueScreen> {
                                         ),
                                         Column(
                                           children: [
-                                            Text(
-                                              objects!.data[0].place!.toString(),
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .copyWith(
-                                                  fontSize: 45,
-                                                  color: Colors.yellow[700]),
-                                            )
+                                            myText(text: objects!.data[index].place!.toString(), isBold: true),
                                           ],
                                         ),
                                       ],
@@ -152,23 +106,9 @@ class _queueScreenState extends State<queueScreen> {
                                         child: Column(
                                           children: [
                                             Icon(Icons.person_outline, size: 50),
-                                            Text(
-                                              'before you',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .copyWith(
-                                                  fontSize: 20,
-                                                  color: Colors.black),
-                                            ),
-                                            Text(objects!.data[0].clients_before.toString(),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText1!
-                                                    .copyWith(
-                                                    fontSize: 20,
-                                                    color:
-                                                    HexColor(defaultGreen)))
+                                            myText(text: 'before you', isBold: true),
+
+                                            myText(text: objects!.data[index].clients_before.toString(), isBold: true),
                                           ],
                                         ),
                                       ),
@@ -186,34 +126,13 @@ class _queueScreenState extends State<queueScreen> {
                                         child: Column(
                                           children: [
                                             Icon(Icons.more_time_outlined, size: 50),
-                                            Text(
-                                              'time estimation',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1!
-                                                  .copyWith(
-                                                  fontSize: 20,
-                                                  color: Colors.black),
-                                            ),
+                                            myText(text: 'estimation', isBold: true,size: 20),
                                             Row(
                                               crossAxisAlignment:
                                               CrossAxisAlignment.end,
                                               children: [
-                                                Text('30',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText1!
-                                                        .copyWith(
-                                                        fontSize: 20,
-                                                        color: HexColor(
-                                                            defaultGreen))),
-                                                Text('minutes',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText1!
-                                                        .copyWith(
-                                                        fontSize: 10,
-                                                        color: Colors.black)),
+                                                myText(text: (objects!.data[index].clients_before! * 5).toString(), isBold: true,color: Colors.green),
+                                                myText(context: context ,text: 'minutes', isBold: true,size: 15)
                                               ],
                                             )
                                           ],
@@ -230,34 +149,7 @@ class _queueScreenState extends State<queueScreen> {
                                         function: ()  {
                                           print('clicked');
                                           pfeCubit.get(context).deleteDate(id_date: objects!.data[index].id.toString());
-                                          print(objects!.data[0].id);
 
-                                          /*
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) => AlertDialog(
-                                                actions: [
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop();
-                                                      },
-                                                      child: Text("NO")),
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        cubit.deleteDate(
-                                                            id_date: objects!.data[index].id.toString()
-                                                        );
-                                                        //Navigator.of(context).pop();
-                                                      },
-                                                      child: Text("YES")),
-                                                ],
-                                                title: Center(
-                                                    child: Text(
-                                                        "Do you want to cancel")),
-                                                contentPadding: EdgeInsets.all(8),
-                                              ));
-                                          */
                                         },
                                         text: 'Cancel',
                                         radius: 10,
@@ -288,3 +180,10 @@ class _queueScreenState extends State<queueScreen> {
     );
   }
 }
+// Text(objects!.data[index].service!,
+//     style: Theme.of(context)
+//         .textTheme
+//         .bodyText1!
+//         .copyWith(
+//         fontSize: 20, color: Colors.black)
+// ),

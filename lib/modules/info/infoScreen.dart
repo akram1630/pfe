@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pfe/shared/components.dart';
 
 class infoScreen extends StatelessWidget {
 
@@ -22,26 +23,17 @@ class infoScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     SizedBox(height: 10,),
-                    Text('AKRAM',style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                        color: Colors.black,
-                        fontSize: 20
-                      ),
-                    ),
+                    myText(text: 'AKRAM'),
                     Row(
                       children: [
                         Expanded(
                             flex : 3,
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
-                              child: Text(
-                                  'oqjndosdfksqdfqdq'
-                              'qerqerqeqerqersefsdmfl,df'
-                              'sdfsdflknsdfksdsdsd'
-                                  'qsqsdqdqdqdldflk',style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                                  color: Colors.black,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.normal
-                              )),
+                              child: myText(text: 'oqjndosdfksqdfqdq'
+                                  'qerqerqeqerqersefsdmfl,df'
+                                  'sdfsdflknsdfksdsdsd'
+                                  'qsqsdqdqdqdldflk'),
                             )),
                         Expanded(
                             flex: 1,

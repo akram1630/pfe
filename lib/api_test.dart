@@ -73,7 +73,7 @@ void main() {
 
   dioHelper.init();
 
-
+/*
   dioHelper.delete(
     data: {},
       url: 'Api/Delete_Date/33/', //id of date
@@ -87,8 +87,8 @@ void main() {
 
     print(err.toString());
   });
-
-  /*
+*/
+/*
   dioHelper.getData(url: 'Api/All_Services/' )
       .then((value){
     print(value.data);
@@ -97,10 +97,10 @@ void main() {
     print(err.toString());
   });
 */
-  /*
+/*
   dioHelper.getData(
       url: 'Api/Related_objects/',
-      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4NjI1NjQ5LCJpYXQiOjE3MTA4NDk2NDksImp0aSI6IjJmMzM0OGY5MzczMzQxYWZiZmZlODE3MjZjOTM4NGE0IiwidXNlcl9pZCI6MzN9.9MfZx_sG7TZZMHef5lyNK2xzFWtNHv6s8mCnAYuh-vY'
+      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTAzNDY1LCJpYXQiOjE3MTQzMjc0NjUsImp0aSI6ImMzM2QwNWQxNWIwNDRiYjZiYWYxZTkwMTZiZmRmNDg2IiwidXNlcl9pZCI6MTF9.MhuqVmxcMw6DZMq4iQJ0hbrwsmzNPeEv4AcDcjvkYRY'
   ).then((value){
     print(value.data);
     relatedObjectsModel ? obj = relatedObjectsModel.fromJson(value.data);
@@ -115,24 +115,24 @@ void main() {
 /*
   dioHelper.patchData(
     data: {
-      "first_name": "NewName",
+      "first_name": "theNewName",
+      "last_name": "theNewLast",
+      "phone_number": "0025978754",
+      "email": "theNew@gmail.com",
     },
     url: 'auth/Update_Client/',
     token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4NTU3NTg0LCJpYXQiOjE3MTA3ODE1ODQsImp0aSI6IjViNTJkOWIyNDAxNzQyYzhhMDcyYTEwNmJjNDg2YzdjIiwidXNlcl9pZCI6Mzh9.U-TtsAZfme9P269eolFw4DCT4DCikmM2aDzY4_kYR5g',
   ).then((value){
-
-
     print(value.data);
-
   }).catchError((err){
     print(err.toString());
   });
 */
 /*
- //user
+ //user data
   dioHelper.getData(
       url: 'auth/Client_Profile/',
-      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4NTU3NTg0LCJpYXQiOjE3MTA3ODE1ODQsImp0aSI6IjViNTJkOWIyNDAxNzQyYzhhMDcyYTEwNmJjNDg2YzdjIiwidXNlcl9pZCI6Mzh9.U-TtsAZfme9P269eolFw4DCT4DCikmM2aDzY4_kYR5g',
+      token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTAzNDY1LCJpYXQiOjE3MTQzMjc0NjUsImp0aSI6ImMzM2QwNWQxNWIwNDRiYjZiYWYxZTkwMTZiZmRmNDg2IiwidXNlcl9pZCI6MTF9.MhuqVmxcMw6DZMq4iQJ0hbrwsmzNPeEv4AcDcjvkYRY',
   ).then((value){
 
     userModel ? user = userModel.fromJson(value.data);
@@ -142,15 +142,15 @@ void main() {
   }).catchError((err){
     print(err.toString());
   });
-  */
+*/
 /*
 //take a date
 dioHelper.postData(
     url: 'Api/RegisterDate/',
     data: {
-      "serv_id" : "One Drive"
+      "serv_id" : "yalidine"
     },
-  token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4NDk2MDYzLCJpYXQiOjE3MTA3MjAwNjMsImp0aSI6IjZiZWVmNTEzODgwMzRhNTJhMTMwY2YyZWMxNDlkYTFjIiwidXNlcl9pZCI6MzV9.tEBwlrYGZHAM4_u_akFFGIBtF3kIJVKlOXlXYKMwpgw'
+    token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTAzNDY1LCJpYXQiOjE3MTQzMjc0NjUsImp0aSI6ImMzM2QwNWQxNWIwNDRiYjZiYWYxZTkwMTZiZmRmNDg2IiwidXNlcl9pZCI6MTF9.MhuqVmxcMw6DZMq4iQJ0hbrwsmzNPeEv4AcDcjvkYRY'
 ).then((value){
 
     print(value.statusCode);
@@ -159,20 +159,16 @@ dioHelper.postData(
   print(err.toString());
 });
 */
-
-}
-
 /*
  //register user
-
   dioHelper.postData(
       url: 'auth/Client_Register/',
       data: {
-        "first_name" : "maroua",
+        "first_name" : "akram",
         "last_name" : "bou",
-        "email" : "maroua@gmail.com",
+        "email" : "akram@gmail.com",
         "phone_number":"0548754594",
-        "password" : "maroua123456"
+        "password" : "123456"
       }
   ).then((value){
     print('000');
@@ -188,6 +184,29 @@ dioHelper.postData(
     print(err.toString());
   });
 */
+ //login
+  dioHelper.postData(
+    url: 'auth/token/',
+    data:{
+      "username" : 'akram@gmail.com',
+      "password" : '23456',
+    }
+).then((value){
+  tokenModel ? tok = tokenModel.fromJson(json: value.data);
+  print(tok.status);
+  print(tok.Code);
+  print(tok.user!.first_name);
+  print(tok.access);
+}).catchError((err){
+  print('error login : $err');
+});
+
+//last token :
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTAzNDY1LCJpYXQiOjE3MTQzMjc0NjUsImp0aSI6ImMzM2QwNWQxNWIwNDRiYjZiYWYxZTkwMTZiZmRmNDg2IiwidXNlcl9pZCI6MTF9.MhuqVmxcMw6DZMq4iQJ0hbrwsmzNPeEv4AcDcjvkYRY
+
+}
+
+
 
 
 /* //bearer example
@@ -236,21 +255,3 @@ dioHelper.postData(
 ////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////
-/* //login
-  dioHelper.postData(
-    url: 'auth/token/',
-    data:{
-      "username" : 'ramy@gmail.com',
-      "password" : 'ramy123456',
-    }
-).then((value){
-
-  tokenModel ? tok = tokenModel.fromJson(json: value.data);
-  print(tok.status);
-  print(tok.Code);
-  print(tok.user!.first_name);
-  print(tok.access);
-}).catchError((err){
-  print('error login : $err');
-});
-*/

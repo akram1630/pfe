@@ -35,33 +35,21 @@ class homeScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-
-                    Text('Discover our ',
-                        style: myStyle!.copyWith(
-                            fontSize: 30
-                        )
-                    ),
+                    myText(text: 'Discover our ', isBold: true,context: context,size: 30),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text('Latest',
-                          style: myStyle!.copyWith(
-                              fontSize: 30
-                          ),
-                        ),
-                        Text(' Services',
-                          style: myStyle!.copyWith(
-                              color: HexColor(defaultGreen),
-                              fontSize: 37
-                          ),
-                        ),
+                        myText(text: 'Latest', isBold: true,context: context,size: 30),
+                        myText(text: ' Services', isBold: true,context: context,color: HexColor(defaultGreen),size: 32),
+
                       ],
                     ),
                     Row(
                       children: [
                         Expanded(
-                            child: TextFormField(
-                            )
+                            child: myTextForm(label: 'search'),
                         ),
+                        SizedBox(width: 10,),
                         Container(
                           decoration: BoxDecoration(
                               color: HexColor(defaultGreen),
@@ -81,18 +69,14 @@ class homeScreen extends StatelessWidget {
                     SizedBox(height: 10,),
                     if(cubit.categories != null)
                     Container(
-                      height: 35,
+                      height: 50,
                       child: ListView.separated(
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context , index) => TextButton(
                             onPressed: () { },
                             child: Card(
                               elevation: 10,
-                              child: Text(cubit.categories!.data[index].category!,
-                                style: myStyle!.copyWith(
-                                  fontSize: 20
-                                ),
-                              ),
+                              child: myText(text: cubit.categories!.data[index].category!, isBold: true)
                             ),
                           ) ,
                           separatorBuilder: (context , index) =>SizedBox(width: 10,),
@@ -137,34 +121,27 @@ class homeScreen extends StatelessWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        cubit.all_services!.services[index].Service_name!,style: myStyle!.copyWith(
-                                          fontSize: 20,
-                                          color: Colors.black
-                                      ),
-                                      ),
+
+                                      myText(text: cubit.all_services!.services[index].Service_name!, isBold: true),
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
                                           Container(
 
                                             child: TextButton(
-                                              child: Text('Reserver',
-                                                style: myStyle,
-                                              ),
+                                              child: myText(text: 'Reserver', isBold: true),
                                               onPressed: () async {
                                                 showDialog(
                                                     context: context,
                                                     builder: (context)=> AlertDialog(
                                                       actions: [
-
                                                         TextButton(
                                                             onPressed: (){
                                                               cubit.getAllServices();
                                                               pfeCubit.get(context).getReletedObj();
                                                               Navigator.of(context).pop();
                                                             },
-                                                            child: Text("Annuler")
+                                                            child: myText(text: 'Annuler',),
                                                         ),
                                                         TextButton(
                                                             onPressed: (){
@@ -177,13 +154,13 @@ class homeScreen extends StatelessWidget {
                                                               );
                                                               Navigator.of(context).pop();
                                                             },
-                                                            child: Text("Reserver")
+                                                            child: myText(text: 'Reserver')
                                                         ),
 
                                                       ],
                                                       title: Center(child: Column(
                                                         children: [
-                                                            Text("Confirm Reservation"),
+                                                            myText(text:"Confirm Reservation"),
                                                         ],
                                                       )),
                                                       contentPadding: EdgeInsets.all(8),

@@ -38,12 +38,14 @@ class pfeCubit extends Cubit<pfeStates>{
       return queueScreen();
     return settingsScreen();
   }
+  bool isStopped = false ;
   List<bool> greenNavBar = [true , false , false];
   void changeBotomNavBar(int index){
     currentIndex = index ;
     for(int i = 0; i<greenNavBar.length ; i++)
       greenNavBar[i] = false ;
     greenNavBar[index] = true ;
+
     emit(pfeChangeBottomNavState());
   }
 
@@ -63,6 +65,8 @@ class pfeCubit extends Cubit<pfeStates>{
       token: 'Bearer $token',
     ).then((value){
       user = userModel.fromJson(value.data);
+      //if(isStopped == true)
+       // startBackgroundTask();
       emit(pfeGetUserSuccessState());
     }).catchError((err){
       emit(pfeGetUserErrorState());
@@ -70,6 +74,31 @@ class pfeCubit extends Cubit<pfeStates>{
     });
   }
 
+  void updateUser({
+    String ? first_name,
+    String ? last_name,
+    String ? phone_number,
+    String ? email,
+  }){
+    emit(pfeUpdateUserLoadingState());
+    dioHelper.patchData(
+      data: {
+        "first_name": first_name,
+        "last_name": last_name,
+        "phone_number": phone_number,
+        "email": email,
+      },
+      url: 'auth/Update_Client/',
+      token: 'Bearer $token',
+    ).then((value){
+      print(value.data);
+      getUser(token);
+      emit(pfeUpdateUserSuccessState());
+    }).catchError((err){
+      print(err.toString());
+      emit(pfeUpdateUserErrorState());
+    });
+  }
 
   void getReletedObj(){
     emit(pfeGetRelatedObjectsLoadingState());
@@ -77,12 +106,12 @@ class pfeCubit extends Cubit<pfeStates>{
         url: 'Api/Related_objects/',
         token: 'Bearer $token'
     ).then((value){
-      print(value.data);
+      print('relatedObj--------------${value.data}');
       objects = relatedObjectsModel.fromJson(value.data);
       emit(pfeGetRelatedObjectsSeccessState());
     })
         .catchError((err){
-      print(err.toString());
+      print('relatedObj--------------${err.toString()}');
       emit(pfeGetRelatedObjectsErrorState());
     });
   }
@@ -93,11 +122,14 @@ class pfeCubit extends Cubit<pfeStates>{
       print('looping');
       getReletedObj();
     });
+    emit(pfeStartAsyncState());
   }
   void stopBackgroundTask() {
     // Check if the timer is not null before cancelling
     print(' stop looping');
+    isStopped = true ;
     backgroundTask?.cancel();
+    emit(pfeStopAsyncState());
   }
 
   void deleteDate({required String id_date }){

@@ -13,7 +13,7 @@ class loginSuccessStates extends loginStates{
 }
 
 class loginErrorStates extends loginStates{
-  final tokenModel login;
+  final String login;
   loginErrorStates(this.login);
 }
 

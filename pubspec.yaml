@@ -39,7 +39,6 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   fluttertoast: ^8.2.2
   flutter_native_splash: ^2.2.18
-  geolocator: ^11.0.0
   curved_navigation_bar: ^1.0.3
   flutter_svg: ^2.0.3
 
@@ -56,9 +55,9 @@ flutter_native_splash:
   android: true
   ios: true
   web: false
-  #color: "#42a5f5"
-  background_image: "assets/images/rain.jpg"
-  #image: "assets/images/rain.jpg"
+  color: "#f7fbf4"
+  #background_image: "assets/images/Dalti_Logo.svg"
+  image: "assets/images/Dalti_Logo.jpg"
 
 dev_dependencies:
   flutter_test:
