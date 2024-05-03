@@ -17,7 +17,28 @@ class _queueScreenState extends State<queueScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<pfeCubit, pfeStates>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if(state is pfeDeleteDateSeccessState)
+            myShowDialog(
+              context: context,
+              nbrButtons: 1,
+              message: 'Cancelling has done',
+              btn1: 'Ok',
+              bt1Pressed: (){Navigator.of(context).pop();},
+              bt2Pressed: (){},
+              colorBtn1: Colors.green,
+            );
+          if(state is pfeDeleteDateErrorState)
+            myShowDialog(
+              context: context,
+              nbrButtons: 1,
+              message: 'Cancelling has failed',
+              btn1: 'Ok',
+              bt1Pressed: (){Navigator.of(context).pop();},
+              bt2Pressed: (){},
+              colorBtn1: Colors.red,
+            );
+        },
         builder: (context, state) {
           pfeCubit cubit = pfeCubit.get(context);
           return SingleChildScrollView(
@@ -148,13 +169,28 @@ class _queueScreenState extends State<queueScreen> {
                                     child: defaultButton(
                                         function: ()  {
                                           print('clicked');
-                                          pfeCubit.get(context).deleteDate(id_date: objects!.data[index].id.toString());
-
+                                          myShowDialog(
+                                              context: context,
+                                              nbrButtons: 2,
+                                              message: 'Cancel',
+                                              btn1: 'yes',
+                                              bt1Pressed: (){
+                                                pfeCubit.get(context).deleteDate(id_date: objects!.data[index].id.toString());
+                                                Navigator.of(context).pop();
+                                              },
+                                              btn2: 'no',
+                                              colorBtn2: Colors.red[400],
+                                              bt2Pressed: (){
+                                                Navigator.of(context).pop();
+                                              },
+                                              colorBtn1: Colors.green
+                                          );
                                         },
                                         text: 'Cancel',
                                         radius: 10,
                                         width: 200,
-                                        color: Colors.red),
+                                        color: Colors.red[500]
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 15,

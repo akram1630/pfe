@@ -23,7 +23,26 @@ class homeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<pfeCubit, pfeStates>(
         listener: (context, state) {
-          //if()
+          if(state is pfeRegisterDateSuccessState)
+            myShowDialog(
+              context: context,
+              nbrButtons: 1,
+              message: 'registration done',
+              btn1: 'Ok',
+              bt1Pressed: (){Navigator.of(context).pop();},
+              bt2Pressed: (){},
+              colorBtn1: Colors.green,
+            );
+          if(state is pfeRegisterDateErrorState)
+            myShowDialog(
+              context: context,
+              nbrButtons: 1,
+              message: 'registration failed',
+              btn1: 'Ok',
+              bt1Pressed: (){Navigator.of(context).pop();},
+              bt2Pressed: (){},
+              colorBtn1: Colors.red,
+            );
         },
         builder: (context, state) {
           pfeCubit cubit = pfeCubit.get(context);
@@ -60,12 +79,11 @@ class homeScreen extends StatelessWidget {
                               cubit.getAllServices();
                               cubit.getCategories();
                             },
-                            icon: Icon(Icons.search_outlined , color: Colors.white,),
+                            icon: Icon(Icons.search_outlined , size:29,color: Colors.white,),
                           ),
                         )
                       ],
                     ),
-
                     SizedBox(height: 10,),
                     if(cubit.categories != null)
                     Container(
@@ -126,53 +144,18 @@ class homeScreen extends StatelessWidget {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
-                                          Container(
-
-                                            child: TextButton(
-                                              child: myText(text: 'Reserver', isBold: true),
-                                              onPressed: () async {
-                                                showDialog(
-                                                    context: context,
-                                                    builder: (context)=> AlertDialog(
-                                                      actions: [
-                                                        TextButton(
-                                                            onPressed: (){
-                                                              cubit.getAllServices();
-                                                              pfeCubit.get(context).getReletedObj();
-                                                              Navigator.of(context).pop();
-                                                            },
-                                                            child: myText(text: 'Annuler',),
-                                                        ),
-                                                        TextButton(
-                                                            onPressed: (){
-                                                              print("the token is $token");
-                                                              print(cubit.all_services!.services[index].Service_name);
-                                                              idService = cubit.all_services!.services[index].Service_name;
-                                                              cubit.registerDate(
-                                                                  token: 'Bearer $token',
-                                                                  serv_id: cubit.all_services!.services[index].Service_name
-                                                              );
-                                                              Navigator.of(context).pop();
-                                                            },
-                                                            child: myText(text: 'Reserver')
-                                                        ),
-
-                                                      ],
-                                                      title: Center(child: Column(
-                                                        children: [
-                                                            myText(text:"Confirm Reservation"),
-                                                        ],
-                                                      )),
-                                                      contentPadding: EdgeInsets.all(8),
-                                                    )
-                                                );
-
-                                              },
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color: HexColor(defaultGreen)
-                                            ),
-                                          ),
+                                          defaultButton(function: (){
+                                            myShowDialog(context: context, nbrButtons: 2, message: 'Confirme Reservation', btn1: 'Reserver', bt1Pressed: (){
+                                              cubit.registerDate(
+                                                  token: 'Bearer $token',
+                                                  serv_id: cubit.all_services!.services[index].Service_name
+                                              );
+                                              Navigator.of(context).pop();
+                                            }, btn2: 'Annuler',colorBtn2: Colors.red[400],
+                                                bt2Pressed: (){
+                                              Navigator.of(context).pop();
+                                            },  colorBtn1: Colors.green);
+                                          }, text: 'Reserver',width: 140,textColor: Colors.black,textSize: 20,radius: 10),
                                           SizedBox(width: 10,)
                                         ],
                                       )

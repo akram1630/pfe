@@ -34,47 +34,17 @@ class loginScreen extends StatelessWidget {
             myShowDialog(
                 bt1Pressed: (){Navigator.pop(context);},
                 btn1: "exit",
-                colorMessage: Colors.red,
-                colorBtn1: Colors.black,
+                colorBtn1: Colors.red,
                 context: context,
-                message: "error",
-                nbrButtons: 1
+                message: "Error",
+                nbrButtons: 1,
+                bt2Pressed: (){}
             );
 
           if(state is loginSuccessStates){
             if(state.login.status!){
               print('-----token = ${state.login.access}');
               pfeCubit.get(context).startBackgroundTask();
-              showDialog(
-                  context: context,
-                  builder: (context)=> AlertDialog(
-                    actions: [
-
-                      TextButton(
-                          onPressed: (){
-
-                            Navigator.of(context).pop();
-                          },
-                          child: Text("Annuler")
-                      ),
-                      TextButton(
-                          onPressed: (){
-                            print("show dialog");
-                            Navigator.of(context).pop();
-
-                          },
-                          child: Text("Reserver")
-                      ),
-
-                    ],
-                    title: Center(child: Column(
-                      children: [
-                        Text("Confirm Reservation"),
-                      ],
-                    )),
-                    contentPadding: EdgeInsets.all(8),
-                  )
-              );
               await cachHelper.saveData(key: 'token' , value: state.login.access)
                 .then((value) async {
                   token = await cachHelper.get(key: 'token') ;
@@ -120,7 +90,8 @@ class loginScreen extends StatelessWidget {
                                 Center(child: CircularProgressIndicator()),
                             builder: (context) => defaultButton(
                               radius: 10,
-                              textColor: HexColor(defaultGreen),
+                              width: 170,
+                              textColor: Colors.black,
                               function: () {
                                 if (formKey.currentState!.validate()) {
                                   cubit.pfeLoginUser(
@@ -130,19 +101,22 @@ class loginScreen extends StatelessWidget {
                                 }
                               },
                               text: 'LOGIN',
+
                             ),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Don\'t have an account?' , style: TextStyle(color: HexColor(defaultGray)),),
+                              myText(text:'Don\'t have an account?' , color: HexColor(defaultGray),size: 15),
                               //Spacer(),
                               SizedBox(
                                 width: 10,
                               ),
-                              TextButton(onPressed: () {
+                              TextButton(
+                                onPressed: () {
                                 navigateAndFinish(context, registerScreen());
-                              }, child: Text('REGISTRE'))
+                                },
+                                child: myText(text:'REGISTRE',color: Colors.blue,size: 16),)
                             ],
                           )
                         ],

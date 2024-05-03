@@ -22,12 +22,30 @@ class registerScreen extends StatelessWidget {
       create: (context) => registerCubit(),
       child: BlocConsumer<registerCubit,registerStates>(
         listener: (context , state){
-          if(state is registerSeccessStates)
-            if(state.status){
-              print('registration is done');
-              navigateTo(context, loginScreen());
-            }
+          if(state is registerErrorStates)
+            myShowDialog(
+                bt1Pressed: (){Navigator.pop(context);},
+                btn1: "exit",
+                colorBtn1: Colors.red,
+                context: context,
+                message: "Error",
+                nbrButtons: 1,
+                bt2Pressed: (){}
+            );
 
+          if(state is registerSeccessStates){
+            if(state.status){
+              myShowDialog(
+                  bt1Pressed: (){navigateAndFinish(context, loginScreen());},
+                  btn1: "OK",
+                  colorBtn1: Colors.green,
+                  context: context,
+                  message: "Sign-up has done",
+                  nbrButtons: 1,
+                  bt2Pressed: (){}
+              );
+            }
+          }
         },
         builder: (context , state){
           registerCubit cubit = registerCubit.get(context);
@@ -57,12 +75,8 @@ class registerScreen extends StatelessWidget {
                                   .textTheme
                                   .headline4!
                                   .copyWith(color: Colors.black)),
-                          Text(
-                            'Register now to browse our hot offers',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1!
-                                .copyWith(color: Colors.grey),
+                          myText(
+                            text: 'Register now to browse our hot offers',
                           ),
                           SizedBox(
                             height: 5,

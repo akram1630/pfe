@@ -110,23 +110,37 @@ class settingsScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 5,),
-                  MaterialButton(
-                    onPressed: () async {
-                      await cachHelper.removeData(key: 'token').then((value){
-                        Timer(Duration(seconds: 1), () => cubit.stopBackgroundTask());
-                        navigateAndFinish(context, loginScreen());
-                      });
+                  SizedBox(height: 15,),
+                  defaultButton(function: () {
+                    myShowDialog(
+                        context: context,
+                        nbrButtons: 2,
+                        message: 'confirme Logout',
+                        btn1: 'yes',
+                        bt2Pressed: (){
+
+                          Navigator.of(context).pop();
+                        },
+                        btn2: 'no',
+                        colorBtn2: Colors.red[400],
+                        bt1Pressed: () async {
+                          await cachHelper.removeData(key: 'token').then((value){
+                            Timer(Duration(seconds: 1), () => cubit.stopBackgroundTask());
+                            navigateAndFinish(context, loginScreen());
+                          });
+                        },
+                        colorBtn1: Colors.green
+                    );
+
                     },
-                    child: Container(
-                        padding: EdgeInsets.all(10) ,
-                        decoration: BoxDecoration(
-                          color: HexColor(defaultGreen),
-                          borderRadius: BorderRadius.circular(10.0), // Adjust the radius for rounded corners
-                        ),
-                        child: myText(text: 'LogOut')
-                    ),
-                  )
+                    width: 150,
+                    radius: 10,
+                    textSize: 22,
+                    textColor: Colors.white,
+                    text:'Log-out',
+
+                  ),
+
                 ],
               ),
             ),

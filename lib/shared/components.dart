@@ -9,7 +9,7 @@ Widget defaultButton({
         double width = double.infinity,
         Color? color,
         double? textSize,
-        Color? textColor,
+        Color? textColor = Colors.white,
         required void function(),
         required String text,
         bool isUppercase = true
@@ -21,7 +21,7 @@ Widget defaultButton({
           borderRadius: BorderRadius.circular(radius)),
       child: MaterialButton(
         onPressed: function,
-        child: myText(text: text, isBold: true,color: color)
+        child: myText(text: text, isBold: true,color: textColor,size: textSize)
       ),
     );
 
@@ -128,9 +128,9 @@ Future myShowDialog({
   required String message,
   required String btn1,
   String? btn2,
-  required void Function()? bt1Pressed,
-  void Function()? bt2Pressed,
-  required Color colorMessage,
+  required void bt1Pressed(),
+  required void bt2Pressed(),
+  Color colorMessage = Colors.black,
   required Color colorBtn1,
   Color? colorBtn2,
 }) {
@@ -138,14 +138,13 @@ Future myShowDialog({
       context: context,
       builder: (context) => AlertDialog(
             actions: [
-              TextButton(
-                  onPressed: bt1Pressed,
-                  child: myText(text: 'exit', isBold: true,size: 15)
-              ),
               if(btn2 != null)
-                TextButton(
-                  onPressed: bt2Pressed,
-                  child: Text(btn2)),
+                defaultButton(function: bt2Pressed , color: colorBtn2, text: btn2,radius: 10,textSize: 18,width: 130),
+
+              defaultButton(function: bt1Pressed , color: colorBtn1,text: btn1,radius: 10,textSize: 18,width: 130),
+
+
+
             ],
             title: Center(
                 child: Column(

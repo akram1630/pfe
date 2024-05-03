@@ -14,6 +14,7 @@ class layout extends StatelessWidget {
   layout(this.first_name);
   @override
   Widget build(BuildContext context) {
+
     return BlocConsumer<pfeCubit,pfeStates>(
       listener: (context , state){},
       builder: (context , state){
@@ -62,28 +63,28 @@ class layout extends StatelessWidget {
             child: CurvedNavigationBar(
               height:55,
               animationDuration: Duration(milliseconds: 250),
-              color: Colors.white,//HexColor(defaultGreen),//HexColor('#2e68b2'),
-              buttonBackgroundColor: Colors.white,
-              backgroundColor: Colors.white,
+              color: Theme.of(context).scaffoldBackgroundColor,//HexColor(defaultGreen),//HexColor('#2e68b2'),
+              buttonBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               animationCurve: Curves.easeOutCirc,
               items: <Widget>[
                 Column(
                   children: [
-                    Icon(Icons.home,   size: 35, color: cubit.greenNavBar[0] ? HexColor(defaultGreen) : Colors.black,),
-                    myText(text: 'Home', isBold: true,color: cubit.greenNavBar[0] ? HexColor(defaultGreen) : Colors.black,size: 16)
+                    Icon(Icons.home,   size: 35, color: cubit.greenNavBar[0] ? HexColor(defaultGreen) : Theme.of(context).canvasColor),
+                    myText(text: 'Home', isBold: true,color: cubit.greenNavBar[0] ? HexColor(defaultGreen) : Theme.of(context).canvasColor,size: 16)
                   ],
                 ),
                 Column(
                   children: [
-                    Icon(Icons.query_builder_rounded, size: 35, color: cubit.greenNavBar[1] ? HexColor(defaultGreen) : Colors.black,),
-                    myText(text: 'Query', isBold: true,color: cubit.greenNavBar[1] ? HexColor(defaultGreen) : Colors.black,size: 16)
+                    Icon(Icons.query_builder_rounded, size: 35, color: cubit.greenNavBar[1] ? HexColor(defaultGreen) : Theme.of(context).canvasColor),
+                    myText(text: 'Query', isBold: true,color: cubit.greenNavBar[1] ? HexColor(defaultGreen) : Theme.of(context).canvasColor,size: 16)
 
                   ],
                 ),
                 Column(
                     children:[
-                      Icon(Icons.settings_outlined, size: 35 , color: cubit.greenNavBar[2] ? HexColor(defaultGreen) : Colors.black,),
-                      myText(text: 'Settings', isBold: true,color: cubit.greenNavBar[2] ? HexColor(defaultGreen) : Colors.black,size: 16)
+                      Icon(Icons.settings_outlined, size: 35 , color: cubit.greenNavBar[2] ? HexColor(defaultGreen) : Theme.of(context).canvasColor,),
+                      myText(text: 'Settings', isBold: true,color: cubit.greenNavBar[2] ? HexColor(defaultGreen) : Theme.of(context).canvasColor,size: 16)
 
                     ]
                 ),

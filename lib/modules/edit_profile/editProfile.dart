@@ -19,9 +19,12 @@ class  editProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocConsumer<pfeCubit,pfeStates>(
       listener: (context,state){
+        if(state is pfeUpdateUserSuccessState)
+          myShowDialog(context: context, nbrButtons: 1, message: 'updated success', btn1: 'Done', bt1Pressed: (){Navigator.pop(context);}, colorMessage: Colors.black, colorBtn1: HexColor(defaultGreen),bt2Pressed: (){});
+        if(state is pfeUpdateUserErrorState)
+          myShowDialog(context: context, nbrButtons: 1, message: 'updated failed', btn1: 'exit', bt1Pressed: (){Navigator.pop(context);}, colorMessage: Colors.black, colorBtn1: Colors.red,bt2Pressed: (){});
 
       },
       builder:(context,state){
@@ -70,17 +73,23 @@ class  editProfile extends StatelessWidget {
                   SizedBox(height: 20,),
                   myTextForm(icon: Icon(Icons.phone,color: HexColor(defaultGreen)) ,label: "phone" , controller: phone, ),
                   SizedBox(height: 20,),
-                  defaultButton(
-                      function: (){
-                        cubit.updateUser(
-                          email: email.text,
-                          first_name: name.text,
-                          last_name: lastName.text,
-                          phone_number: phone.text
-                        );
-                      },
-                      text: 'Update',
-                    color: HexColor(defaultGreen)
+                  Padding(
+                    padding:  EdgeInsets.symmetric(horizontal: 65),
+                    child: defaultButton(
+                        function: (){
+                          cubit.updateUser(
+                            email: email.text,
+                            first_name: name.text,
+                            last_name: lastName.text,
+                            phone_number: phone.text
+                          );
+                        },
+                        text: 'Update',
+                        textSize: 25,
+                        textColor: Colors.white,
+                      color: HexColor(defaultGreen),
+                      radius: 4
+                    ),
                   )
                 ],
               ),

@@ -47,6 +47,7 @@ ThemeData myLightMode = ThemeData(
     border: UnderlineInputBorder(),
 
   ),
+    canvasColor: Colors.black // for iconNav
 );
 ThemeData myDarkMode = ThemeData(
   appBarTheme: AppBarTheme(
@@ -91,5 +92,5 @@ ThemeData myDarkMode = ThemeData(
   ),
 
   scaffoldBackgroundColor: HexColor('#202124'),
-
+  canvasColor: Colors.white // for iconNav
 );
