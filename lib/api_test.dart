@@ -72,7 +72,21 @@ class testApi{
 void main() {
 
   dioHelper.init();
+  void getReletedObj(){
+    dioHelper.getData(
+        url: 'Api/Related_objects/',
+        token: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyNjgwMzMyLCJpYXQiOjE3MTQ5MDQzMzIsImp0aSI6IjQyMDUzYzFjZGVkNjQyZDE4N2JkMzljYTUyZjFhNDllIiwidXNlcl9pZCI6MTF9.3Z3hMunymlMsWaA-Zm5_6LeMdX1gitym__bQufkoPLo'
+    ).then((value){
+      print('relatedObj--------------${value.data}');
+      objects = relatedObjectsModel.fromJson(value.data);
+      print(objects);
+    })
+        .catchError((err){
+      print('relatedObj--------------${err.toString()}');
 
+    });
+  }
+  getReletedObj();
 /*
   dioHelper.delete(
     data: {},
@@ -185,21 +199,21 @@ dioHelper.postData(
   });
 */
  //login
-  dioHelper.postData(
-    url: 'auth/token/',
-    data:{
-      "username" : 'akram@gmail.com',
-      "password" : '23456',
-    }
-).then((value){
-  tokenModel ? tok = tokenModel.fromJson(json: value.data);
-  print(tok.status);
-  print(tok.Code);
-  print(tok.user!.first_name);
-  print(tok.access);
-}).catchError((err){
-  print('error login : $err');
-});
+//   dioHelper.postData(
+//     url: 'auth/token/',
+//     data:{
+//       "username" : 'akram@gmail.com',
+//       "password" : '23456',
+//     }
+// ).then((value){
+//   tokenModel ? tok = tokenModel.fromJson(json: value.data);
+//   print(tok.status);
+//   print(tok.Code);
+//   print(tok.user!.first_name);
+//   print(tok.access);
+// }).catchError((err){
+//   print('error login : $err');
+// });
 
 //last token :
 //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTAzNDY1LCJpYXQiOjE3MTQzMjc0NjUsImp0aSI6ImMzM2QwNWQxNWIwNDRiYjZiYWYxZTkwMTZiZmRmNDg2IiwidXNlcl9pZCI6MTF9.MhuqVmxcMw6DZMq4iQJ0hbrwsmzNPeEv4AcDcjvkYRY

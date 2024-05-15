@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:pfe/layout/cubit/states.dart';
 import 'package:pfe/shared/cache_helper.dart';
 import 'package:pfe/shared/components.dart';
 
+import '../modules/edit_profile/editProfile.dart';
 import '../styles/colors.dart';
 
 class layout extends StatelessWidget {
@@ -32,12 +35,12 @@ class layout extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Container(
-                  width: 50,
-                  height: 50,
+                  width: 70,
+                  height: 70,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
+                    shape: BoxShape.rectangle,
                     image: DecorationImage(
-                        image: NetworkImage(cubit.user != null ? 'https://mypfe.cntic-club.com${cubit.user!.Profile_pic}' : 'https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars.png'),
+                        image: AssetImage('assets/images/Dalti_Logo.jpg')
                     )
                   ),
 
@@ -48,15 +51,19 @@ class layout extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 3 ),
               child: Row(
                 children: [
-                  myText(text: 'hello ', isBold: true,context: context),
-                  myText(text: (cubit.user == null || cubit.user!.first_name == null) ? first_name!  : cubit.user!.first_name!, isBold: true,context: context),
-
+                  Expanded(child: myText(text: 'hello   ', isBold: true,context: context,size: 17)),
+                  Expanded(child: myText(size: 17,text: (cubit.user == null || cubit.user!.first_name == null) ? first_name!  : cubit.user!.first_name!, isBold: true,context: context)),
+                 // Expanded(child: myText(text: '05/05',size: 12)),
+                  Spacer()
                 ],
               ),
             ),
           ),
           //body: cubit.bottomScreens[cubit.currentIndex],
-          body: cubit.whichScreen(cubit.currentIndex, context),
+          body: WillPopScope(
+              onWillPop: () async {return false;},
+              child: cubit.bottomScreens[cubit.currentIndex]
+          ),
           bottomNavigationBar: Container(
             color: Colors.green,
             height: 85,
@@ -77,7 +84,7 @@ class layout extends StatelessWidget {
                 Column(
                   children: [
                     Icon(Icons.query_builder_rounded, size: 35, color: cubit.greenNavBar[1] ? HexColor(defaultGreen) : Theme.of(context).canvasColor),
-                    myText(text: 'Query', isBold: true,color: cubit.greenNavBar[1] ? HexColor(defaultGreen) : Theme.of(context).canvasColor,size: 16)
+                    myText(text: 'Queu', isBold: true,color: cubit.greenNavBar[1] ? HexColor(defaultGreen) : Theme.of(context).canvasColor,size: 16)
 
                   ],
                 ),
@@ -90,6 +97,15 @@ class layout extends StatelessWidget {
                 ),
               ],
               onTap: (index) {
+                if(index==2 && !cubit.isStopped){
+                  Timer(Duration(seconds: 1), () => cubit.stopBackgroundTask());
+                  //cubit.AsyncFunc(true);
+                }
+                else if(cubit.isStopped){
+                  cubit.startBackgroundTask();
+                  //cubit.AsyncFunc(false);
+                }
+
 
                 cubit.changeBotomNavBar(index);
               },

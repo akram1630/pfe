@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -8,7 +10,9 @@ import 'package:pfe/modules/settings/settings_screen.dart';
 import 'package:pfe/shared/components.dart';
 import 'package:pfe/styles/colors.dart';
 
+import '../../shared/cache_helper.dart';
 import '../../shared/constants.dart';
+import '../login/loginScreen.dart';
 
 class  editProfile extends StatelessWidget {
 
@@ -29,6 +33,7 @@ class  editProfile extends StatelessWidget {
       },
       builder:(context,state){
         pfeCubit cubit = pfeCubit.get(context);
+        //cubit.getUser(token); looop
         if(cubit.user != null){
           name.text = cubit.user!.first_name! ;
           lastName.text = cubit.user!.last_name! ;
@@ -37,116 +42,99 @@ class  editProfile extends StatelessWidget {
         }
         else
           cubit.getUser(token);
-        return WillPopScope(
-          onWillPop: () async {return false;},
-          child: Scaffold(
-            appBar: AppBar(
-              leading: IconButton(
-                onPressed: (){
-                  cubit.startBackgroundTask();
-                  navigateAndFinish(context, layout(cubit.user!.first_name!));
-                },
-                icon: Icon(Icons.arrow_back),
-              ),
-            ),
-            body: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: NetworkImage(cubit.user != null ? 'https://mypfe.cntic-club.com${cubit.user!.Profile_pic}' : 'https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars.png'),
-                        )
+        return Center(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/Dalti_Logo.jpg')
+                          )
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 20,),
-                  myTextForm(icon: Icon(Icons.person,color: HexColor(defaultGreen)) ,label: "first name" , controller: name, ),
-                  SizedBox(height: 20,),
-                  myTextForm(icon: Icon(Icons.person,color: HexColor(defaultGreen)) ,label: "first name" , controller: lastName, ),
-                  SizedBox(height: 20,),
-                  myTextForm(icon: Icon(Icons.mail_outline_outlined,color: HexColor(defaultGreen)) ,label: "email" , controller: email, numOfForm: 2 ),
-                  SizedBox(height: 20,),
-                  myTextForm(icon: Icon(Icons.phone,color: HexColor(defaultGreen)) ,label: "phone" , controller: phone, ),
-                  SizedBox(height: 20,),
-                  Padding(
-                    padding:  EdgeInsets.symmetric(horizontal: 65),
-                    child: defaultButton(
-                        function: (){
-                          cubit.updateUser(
-                            email: email.text,
-                            first_name: name.text,
-                            last_name: lastName.text,
-                            phone_number: phone.text
-                          );
-                        },
-                        text: 'Update',
-                        textSize: 25,
+                    SizedBox(height: 20,),
+                    myTextForm(icon: Icon(Icons.person,color: HexColor(defaultGreen)) ,label: "first name" , controller: name, ),
+                    SizedBox(height: 20,),
+                    myTextForm(icon: Icon(Icons.person,color: HexColor(defaultGreen)) ,label: "first name" , controller: lastName, ),
+                    SizedBox(height: 20,),
+                    myTextForm(icon: Icon(Icons.mail_outline_outlined,color: HexColor(defaultGreen)) ,label: "email" , controller: email, numOfForm: 2 ),
+                    SizedBox(height: 20,),
+                    myTextForm(icon: Icon(Icons.phone,color: HexColor(defaultGreen)) ,label: "phone" , controller: phone, ),
+                    SizedBox(height: 20,),
+                    Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: 65),
+                      child: defaultButton(
+                          function: (){
+                            cubit.updateUser(
+                              email: email.text,
+                              first_name: name.text,
+                              last_name: lastName.text,
+                              phone_number: phone.text
+                            );
+                          },
+
+                          text: 'Update',
+                          textSize: 25,
+                          textColor: Colors.white,
+                        color: HexColor(defaultGreen),
+                        radius: 10
+                      ),
+                    ),
+                    SizedBox(height: 15,),
+                    Padding(
+                      padding:  EdgeInsets.symmetric(horizontal: 65),
+                      child: defaultButton(function: () {
+                        myShowDialog(
+                            context: context,
+                            nbrButtons: 2,
+                            message: 'confirme Logout',
+                            btn1: 'yes',
+                            bt2Pressed: (){
+
+                              Navigator.of(context).pop();
+                            },
+                            btn2: 'no',
+                            colorBtn2: Colors.red[400],
+                            bt1Pressed: () async {
+                              await cachHelper.removeData(key: 'token').then((value){
+                                Timer(Duration(seconds: 1), () => cubit.stopBackgroundTask());
+                                navigateAndFinish(context, loginScreen());
+                              });
+                            },
+                            colorBtn1: Colors.green
+                        );
+
+                      },
+                        radius: 10,
+                        textSize: 22,
                         textColor: Colors.white,
-                      color: HexColor(defaultGreen),
-                      radius: 4
+                        text:'Log-out',
+                      ),
                     ),
-                  )
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        );
+          );
       } ,
     );
   }
 }
-/*TextFormField(
-                    controller: name,
-                    decoration: InputDecoration(
-                      prefix: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10
-                        ),
-                        child: Icon(Icons.person_outline),
-                      ),
-                      border: UnderlineInputBorder(),
-                    ),
-                  ),*/
-/*TextFormField(
-                    controller: lastName,
-                    decoration: InputDecoration(
-                      prefix: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10
-                        ),
-                        child: Icon(Icons.people_outline),
-                      ),
-                      border: UnderlineInputBorder(),
 
-                    ),
-                  ),*/
-/*TextFormField(
-                    controller: email,
-                    decoration: InputDecoration(
-                      prefix: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10
-                        ),
-                        child: Icon(Icons.email_outlined),
-                      ),
-                      border: UnderlineInputBorder(),
 
-                    ),
-                  ),*/
-/*TextFormField(
-                    controller: phone,
-                    decoration: InputDecoration(
-                      prefix: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10
-                        ),
-                        child: Icon(Icons.phone),
-                      ),
-                      border: UnderlineInputBorder(),
-                    ),
-                  ),*/
+// appBar: AppBar(
+//   leading: IconButton(
+//     onPressed: (){
+//       cubit.startBackgroundTask();
+//       navigateAndFinish(context, layout(cubit.user!.first_name!));
+//     },
+//     icon: Icon(Icons.arrow_back),
+//   ),
+// ),

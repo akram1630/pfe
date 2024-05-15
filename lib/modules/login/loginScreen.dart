@@ -36,7 +36,7 @@ class loginScreen extends StatelessWidget {
                 btn1: "exit",
                 colorBtn1: Colors.red,
                 context: context,
-                message: "Error",
+                message: "Login Error",
                 nbrButtons: 1,
                 bt2Pressed: (){}
             );
@@ -48,6 +48,7 @@ class loginScreen extends StatelessWidget {
               await cachHelper.saveData(key: 'token' , value: state.login.access)
                 .then((value) async {
                   token = await cachHelper.get(key: 'token') ;
+                  pfeCubit.get(context).getUser(token);
                   navigateAndFinish(context, layout(state.login.user!.first_name!));
               });
             }
@@ -71,10 +72,10 @@ class loginScreen extends StatelessWidget {
                         //crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                         myText(text: 'LOGIN', isBold: true ,size: 30 ),
-                        SizedBox(height: 20,),
+                        SizedBox(height: 10,),
                         myText(text: 'Login now to benifit our services', isBold: true,size: 15 ),
                           SizedBox(
-                            height: 5,
+                            height: 20,
                           ),
                           myTextForm(icon: Icon(Icons.mail_outline,color: HexColor(defaultGreen)) ,label: "Email Address" , controller: emailController,numOfForm: 2 ,  ),
                           SizedBox(
@@ -90,8 +91,9 @@ class loginScreen extends StatelessWidget {
                                 Center(child: CircularProgressIndicator()),
                             builder: (context) => defaultButton(
                               radius: 10,
+                              textSize: 30,
                               width: 170,
-                              textColor: Colors.black,
+                              textColor: Colors.white,
                               function: () {
                                 if (formKey.currentState!.validate()) {
                                   cubit.pfeLoginUser(
@@ -101,24 +103,16 @@ class loginScreen extends StatelessWidget {
                                 }
                               },
                               text: 'LOGIN',
-
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              myText(text:'Don\'t have an account?' , color: HexColor(defaultGray),size: 15),
-                              //Spacer(),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                navigateAndFinish(context, registerScreen());
-                                },
-                                child: myText(text:'REGISTRE',color: Colors.blue,size: 16),)
-                            ],
-                          )
+                          SizedBox(height: 30,),
+                          myText(text:'Don\'t have an account?' , color: HexColor(defaultGray),size: 15),
+                          //Spacer(),
+                          TextButton(
+                            onPressed: () {
+                              navigateAndFinish(context, registerScreen());
+                            },
+                            child: myText(text:'REGISTRE',color: Colors.blue,size: 16),)
                         ],
                       ),
                     ),

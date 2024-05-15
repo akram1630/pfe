@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pfe/layout/cubit/states.dart';
 import 'package:pfe/models/userModel.dart';
+import 'package:pfe/modules/edit_profile/editProfile.dart';
 import 'package:pfe/modules/home/homeScreen.dart';
 import 'package:pfe/modules/queue/queueScreen.dart';
 import 'package:pfe/modules/settings/settings_screen.dart';
@@ -26,7 +27,7 @@ class pfeCubit extends Cubit<pfeStates>{
   int currentIndex = 0 ;
   List<Widget> bottomScreens = [
     homeScreen() , queueScreen(),
-    settingsScreen()
+    editProfile()
   ];
   Widget whichScreen(int index , context){
     //getReletedObj();
@@ -36,9 +37,13 @@ class pfeCubit extends Cubit<pfeStates>{
       );
     if(index == 1)
       return queueScreen();
-    return settingsScreen();
+    return editProfile();
   }
   bool isStopped = false ;
+  void AsyncFunc(bool a){
+    isStopped = a ;
+    emit(pfeStopAsyncState());
+  }
   List<bool> greenNavBar = [true , false , false];
   void changeBotomNavBar(int index){
     currentIndex = index ;
@@ -49,7 +54,13 @@ class pfeCubit extends Cubit<pfeStates>{
     emit(pfeChangeBottomNavState());
   }
 
-  bool isDarkMode = false ;
+  Future<void> setThemeMode(bool dark) async {
+    isDarkMode = dark ;
+    await cachHelper.putBoolean(key: 'isDarkMode', value: dark)
+        .then((value){
+      emit(pfeChangeThemeModeState());
+    });
+  }
   Future<void> changeThemeMode(bool dark) async {
     isDarkMode = !dark ;
     await cachHelper.putBoolean(key: 'isDarkMode', value: !dark)
@@ -117,7 +128,9 @@ class pfeCubit extends Cubit<pfeStates>{
   }
 
   Timer? backgroundTask;
+  bool isDarkMode = false ;
   void startBackgroundTask() {
+    isStopped  = false ;
     backgroundTask = Timer.periodic(Duration(seconds: 2), (Timer t) {
       print('looping');
       getReletedObj();

@@ -73,17 +73,14 @@ class _queueScreenState extends State<queueScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   SizedBox(
-                                    height: 10,
+                                    height: 20,
                                   ),
                                   myText(text: objects!.data[index].service!, isBold: true,context: context,size: 30,),
-
                                   SizedBox(
-                                    height: 10,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
+                                    height: 20,
                                   ),
                                   Container(
+                                    width: 200,
                                     padding: EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                         color: Colors.grey[200],
@@ -93,73 +90,98 @@ class _queueScreenState extends State<queueScreen> {
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          children: [
-                                            myText(text: 'Your', isBold: true),
-                                            myText(text: 'Position : ', isBold: true,size: 20),
-                                          ],
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              myText(text: 'Your', isBold: true , size: 23),
+                                              myText(text: 'Position : ', isBold: true,size: 23),
+                                            ],
+                                          ),
                                         ),
                                         SizedBox(
                                           width: 15,
                                         ),
-                                        Column(
-                                          children: [
-                                            myText(text: objects!.data[index].place!.toString(), isBold: true),
-                                          ],
-                                        ),
+                                        myText(text: objects!.data[index].place!.toString(), isBold: true,color: HexColor(defaultGreen)   ,size: 40),
+                                        SizedBox(width: 10,)
                                       ],
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 30,
+                                    height: 20,
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey[200],
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10))),
-                                        padding: EdgeInsets.all(6),
-                                        child: Column(
-                                          children: [
-                                            Icon(Icons.person_outline, size: 50),
-                                            myText(text: 'before you', isBold: true),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
+                                    padding: EdgeInsets.all(6),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                           width: 200,
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      myText(text: 'Before', isBold: true , size: 23),
+                                                      myText(text: 'You :', isBold: true , size: 23,),
+                                                    ],
+                                                  ),
+                                                ),
+                                                SizedBox(width: 15,),
+                                                myText(text: (objects!.data[index].clients_before).toString(), size: 40,color: HexColor(defaultGreen)),
+                                                SizedBox(width: 10,)
+                                              ],
+                                            )),
+                                       // myText(text: 'before you', isBold: true),
 
-                                            myText(text: objects!.data[index].clients_before.toString(), isBold: true),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 20,
-                                      ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey[200],
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(10)
-                                            )
-                                        ),
-                                        padding: EdgeInsets.all(6),
-                                        child: Column(
+                                       // myText(text: objects!.data[index].clients_before.toString(), isBold: true),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Container(
+                                    width: 220,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)
+                                        )
+                                    ),
+                                    padding: EdgeInsets.all(6),
+                                    child: Column(
+                                      children: [
+                                        Row(
                                           children: [
-                                            Icon(Icons.more_time_outlined, size: 50),
-                                            myText(text: 'estimation', isBold: true,size: 20),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  myText(text: 'Estimated', isBold: true,size: 23),
+                                                  myText(text: 'Time (min) : '  , isBold: true,size: 23),
+                                                ],
+                                              ),
+                                            ),
                                             Row(
                                               crossAxisAlignment:
                                               CrossAxisAlignment.end,
                                               children: [
-                                                myText(text: (objects!.data[index].clients_before! * 5).toString(), isBold: true,color: Colors.green),
-                                                myText(context: context ,text: 'minutes', isBold: true,size: 15)
+                                                myText(text: (objects!.data[index].clients_before! * 5).toString(), isBold: true,color: Colors.green,size: 40),
+                                             //   myText(context: context ,text: 'min',   isBold: true,size: 15),
+                                                SizedBox(width: 10,)
                                               ],
                                             )
                                           ],
                                         ),
-                                      ),
-                                    ],
+
+                                      ],
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 30,

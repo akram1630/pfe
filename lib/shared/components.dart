@@ -46,12 +46,14 @@ Text myText({
     bool isBold = true,
     double? size,
     Color? color,
-    int? maxLines,
+    int maxLines = 1,
     bool? alignRight
     }) {
   return Text(
     text,
-    textAlign: alignRight != null ? TextAlign.right : null,
+    // we must wrap with Container(width:) or Expended to turn on OverFlow
+    overflow: TextOverflow.visible,
+    textAlign: TextAlign.center,//alignRight != null ? TextAlign.right : null,
     maxLines: maxLines,
     style: context != null ? Theme.of(context)
       .textTheme

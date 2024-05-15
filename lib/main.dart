@@ -63,10 +63,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create:  (context) => pfeCubit()..getUser(token)..getReletedObj()..getCategories()..getAllServices()..startBackgroundTask(),
+      create:  (context) => pfeCubit()..getUser(token)..getReletedObj()..getCategories()..getAllServices()..startBackgroundTask()..setThemeMode(isDarkMode!),
       child: BlocConsumer<pfeCubit , pfeStates>(
         listener: (context,state){},
         builder:  (context,state){
+
           return MaterialApp(
             theme: myLightMode,
             darkTheme: myDarkMode,
